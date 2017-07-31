@@ -1,0 +1,84 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+    defaultConfig {
+        applicationId "com.shui.blacktea"
+        minSdkVersion 19
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        // 开发版本
+        app_local {
+            applicationId "com.railway.party"
+            signingConfig signingConfigs.debug
+            manifestPlaceholders = [
+                    APP_NAME    : "BlackTeaDev",
+                    PACKAGE_NAME: applicationId
+            ]
+            buildConfigField 'boolean', 'releaseEnvironment', 'false'
+            // 产品更新是否是在我们的蒲公英
+            buildConfigField 'boolean', 'releaseBuild', 'false'
+        }
+        // 测试版本 后台推到线上时使用
+        app_test {
+            applicationId "com.railway.party"
+            signingConfig signingConfigs.debug
+            manifestPlaceholders = [
+                    APP_NAME    : "BlackTeaTest",
+                    PACKAGE_NAME: applicationId
+            ]
+            buildConfigField 'boolean', 'releaseEnvironment', 'true'
+            buildConfigField 'boolean', 'releaseBuild', 'false'
+        }
+        // 正式版本
+        app_offical {
+            applicationId "com.railway.party"
+            signingConfig signingConfigs.debug
+            manifestPlaceholders = [
+                    APP_NAME    : "BlackTeaOffical",
+                    PACKAGE_NAME: applicationId
+            ]
+            buildConfigField 'boolean', 'releaseEnvironment', 'true'
+            buildConfigField 'boolean', 'releaseBuild', 'true'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:support-vector-drawable:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    testCompile 'junit:junit:4.12'
+    compile project(':yee-framework')
+
+    compile 'com.google.dagger:dagger:2.0.2'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.0.2'
+    compile 'org.glassfish:javax.annotation:10.0-b28'
+}

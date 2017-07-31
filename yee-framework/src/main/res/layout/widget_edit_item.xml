@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/edit_item_padding_vertical"
+    android:paddingLeft="@dimen/activity_margin"
+    android:paddingRight="@dimen/activity_margin"
+    android:paddingTop="@dimen/edit_item_padding_vertical">
+
+    <TextView
+        android:id="@+id/tv_edit_item_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/activity_margin"
+        android:textColor="@color/text_strong"
+        android:textSize="@dimen/edit_item_label_text_size" />
+
+    <com.yeeyuntech.framework.ui.widget.UIEditText
+        android:id="@+id/et_edit_item_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:lineSpacingExtra="3dp"
+        android:textColor="@color/text_strong"
+        android:textColorHint="@color/text_weak"
+        android:textSize="@dimen/edit_item_label_text_size"
+        app:ui_clear_icon="@drawable/ic_clear" />
+</LinearLayout>

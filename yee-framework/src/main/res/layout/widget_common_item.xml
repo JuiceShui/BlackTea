@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/common_item_height"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/activity_margin"
+        android:layout_marginRight="@dimen/activity_margin"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_left_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:scaleType="fitCenter"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="12dp"
+            android:visibility="gone" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_left_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:lines="1"
+                    android:minWidth="120dp"
+                    android:text="检查更新"
+                    android:textColor="@color/text_strong"
+                    android:textSize="@dimen/common_item_text_size_normal" />
+
+                <TextView
+                    android:id="@+id/tv_left_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="有最新版本"
+                    android:textColor="@color/text_weak"
+                    android:textSize="@dimen/app_text_size"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_right_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:gravity="end"
+                    android:text="已经是最新版本"
+                    android:textColor="@color/text_weak"
+                    android:textSize="@dimen/common_item_text_size_small"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+
+        </FrameLayout>
+
+        <com.yeeyuntech.framework.ui.widget.AutoFitTextView
+            android:id="@+id/tv_message_tip"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical|end"
+            android:background="@drawable/bg_round_theme"
+            android:gravity="center"
+            android:padding="2dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/common_item_text_size_small"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_right_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ico_arrow_right"
+            android:visibility="visible" />
+    </LinearLayout>
+
+</LinearLayout>

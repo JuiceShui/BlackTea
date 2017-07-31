@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--common-->
+    <dimen name="activity_margin">16dp</dimen>
+    <dimen name="app_text_size">15sp</dimen>
+    <dimen name="app_tab_height">40dp</dimen>
+    <dimen name="common_radio_corner">6dp</dimen>
+    <dimen name="button_text_size">16sp</dimen>
+    <dimen name="common_block_margin">12dp</dimen>
+
+    <!--app bar-->
+    <dimen name="app_bar_height">44dp</dimen>
+    <dimen name="app_bar_title_text_size">18sp</dimen>
+    <dimen name="app_bar_text_size">15sp</dimen>
+    <dimen name="app_bar_right_text_drawable_padding">8dp</dimen>
+
+    <!--navi bar-->
+    <dimen name="navi_bar_height">54dp</dimen>
+    <dimen name="navi_bar_text_size">11sp</dimen>
+
+    <!--drawer header-->
+    <dimen name="drawer_header_avatar_padding">8dp</dimen>
+    <dimen name="drawer_header_user_name_text_size">17sp</dimen>
+    <dimen name="drawer_header_user_name_margin_top">16dp</dimen>
+    <dimen name="drawer_logout_text_size">15sp</dimen>
+
+    <!--common button big-->
+    <dimen name="common_button_big_margin_top">32dp</dimen>
+
+    <!--common_item-->
+    <dimen name="common_item_height">48dp</dimen>
+    <dimen name="common_item_left_icon_width">30dp</dimen>
+    <dimen name="common_item_left_icon_margin_right">30dp</dimen>
+    <dimen name="common_item_text_size_normal">@dimen/app_text_size</dimen>
+    <dimen name="common_item_text_size_small">13sp</dimen>
+
+    <!--edit item-->
+    <dimen name="edit_item_min_height">48dp</dimen>
+    <dimen name="edit_item_label_text_size">15sp</dimen>
+    <dimen name="edit_item_padding_vertical">18dp</dimen>
+
+
+    <!--activity login-->
+    <dimen name="activity_login_edit_text_padding">12dp</dimen>
+
+    <!--activity register-->
+    <dimen name="register_edit_item_label_width">75dp</dimen>
+
+    <!--loading-->
+    <dimen name="loading_text_size">13sp</dimen>
+
+    <!--activity party detail-->
+    <dimen name="activity_party_detail_name_text_size">20sp</dimen>
+
+</resources>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/app_bar_height">
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/iv_left_icon"
+        style="?attr/toolbarNavigationButtonStyle"
+        android:layout_width="@dimen/app_bar_height"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:scaleType="centerInside"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_left_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:minWidth="@dimen/app_bar_height"
+        android:textColor="@color/app_bar_text_color"
+        android:textSize="@dimen/app_bar_text_size"
+        android:visibility="gone" />
+
+    <com.yeeyuntech.framework.ui.widget.MarqueeTextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ellipsize="marquee"
+        android:lines="1"
+        android:textColor="@color/app_bar_text_color"
+        android:textSize="@dimen/app_bar_title_text_size"
+        android:visibility="gone" />
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/iv_right_icon"
+        style="?attr/toolbarNavigationButtonStyle"
+        android:layout_width="@dimen/app_bar_height"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|right"
+        android:scaleType="centerInside"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_right_text"
+        style="?attr/toolbarNavigationButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|right"
+        android:drawablePadding="@dimen/app_bar_right_text_drawable_padding"
+        android:gravity="center"
+        android:minWidth="@dimen/app_bar_height"
+        android:paddingRight="@dimen/activity_margin"
+        android:textColor="@color/app_bar_text_color"
+        android:textSize="@dimen/app_bar_text_size"
+        android:visibility="gone" />
+</FrameLayout>
