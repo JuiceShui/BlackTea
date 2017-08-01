@@ -8,6 +8,7 @@ package com.shui.blacktea.inject.component;
 import android.app.Activity;
 
 import com.shui.blacktea.inject.module.ActivityModule;
+import com.shui.blacktea.ui.home.HomeActivity;
 import com.yeeyuntech.framework.inject.scope.ActivityScope;
 
 import dagger.Component;
@@ -18,4 +19,5 @@ public interface ActivityComponent {
 
     public Activity getActivity();
 
+    void Inject(HomeActivity homeActivity);
 }

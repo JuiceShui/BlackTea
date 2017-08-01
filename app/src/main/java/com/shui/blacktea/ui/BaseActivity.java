@@ -6,6 +6,8 @@
 package com.shui.blacktea.ui;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 
 import com.shui.blacktea.App;
 import com.shui.blacktea.inject.component.ActivityComponent;
@@ -32,10 +34,12 @@ public abstract class BaseActivity extends YYActivity {
 
     // BaseApplication实例
     protected App mApp;
+    protected LayoutInflater mInflater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mApp = App.getInstance();
+        mInflater = LayoutInflater.from(this);
         super.onCreate(savedInstanceState);
         AppBus.register(this);
     }
@@ -57,6 +61,10 @@ public abstract class BaseActivity extends YYActivity {
     @Override
     protected void initBinding() {
 
+    }
+
+    protected void setToolBar(Toolbar toolBar) {
+        setSupportActionBar(toolBar);
     }
 
     @Override
