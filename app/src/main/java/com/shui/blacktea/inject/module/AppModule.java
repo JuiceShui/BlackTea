@@ -7,7 +7,7 @@ package com.shui.blacktea.inject.module;
 
 
 import com.shui.blacktea.App;
-import com.shui.blacktea.data.retrofit.RetrofitHelper;
+import com.shui.blacktea.data.RetrofitHelper;
 import com.yeeyuntech.framework.inject.module.YYAppModule;
 
 import javax.inject.Singleton;
@@ -34,6 +34,6 @@ public class AppModule extends YYAppModule {
     @Provides
     @Singleton
     RetrofitHelper provideRetrofitHelper() {
-        return RetrofitHelper.getInstance();
+        return new RetrofitHelper();
     }
 }

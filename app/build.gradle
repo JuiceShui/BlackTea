@@ -21,7 +21,7 @@ android {
     productFlavors {
         // 开发版本
         app_local {
-            applicationId "com.railway.party"
+            applicationId "com.shui.blacktea"
             signingConfig signingConfigs.debug
             manifestPlaceholders = [
                     APP_NAME    : "BlackTeaDev",
@@ -33,7 +33,7 @@ android {
         }
         // 测试版本 后台推到线上时使用
         app_test {
-            applicationId "com.railway.party"
+            applicationId "com.shui.blacktea"
             signingConfig signingConfigs.debug
             manifestPlaceholders = [
                     APP_NAME    : "BlackTeaTest",
@@ -44,7 +44,7 @@ android {
         }
         // 正式版本
         app_offical {
-            applicationId "com.railway.party"
+            applicationId "com.shui.blacktea"
             signingConfig signingConfigs.debug
             manifestPlaceholders = [
                     APP_NAME    : "BlackTeaOffical",
@@ -70,7 +70,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile project(':yee-framework')
-
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -79,6 +78,15 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.google.dagger:dagger:2.0.2'
     compile 'org.glassfish:javax.annotation:10.0-b28'
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3-alpha-5'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3-alpha-5'
+    //没有使用特殊Header，可以不加这行
+    compile 'com.youth.banner:banner:1.4.9'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.0.2'
+    compile files('libs/android-support-v8-renderscript.jar')
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.squareup.retrofit2:converter-gson:+'
+    compile 'com.squareup.okhttp3:logging-interceptor:+'
 }

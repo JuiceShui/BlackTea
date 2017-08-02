@@ -8,7 +8,6 @@ package com.shui.blacktea.config;
 import android.content.Context;
 import android.os.Environment;
 
-import com.alibaba.fastjson.JSON;
 import com.shui.blacktea.App;
 import com.shui.blacktea.BuildConfig;
 import com.shui.blacktea.data.AESManager;
@@ -32,8 +31,8 @@ public class AppCfg {
     private static boolean mIsRelease = BuildConfig.releaseEnvironment;
 
     // 测试环境 正式环境 server
-    private static String mDebugServer = "http://10.1.1.6:8081";
-    private static String mReleaseServer = "http://crcc.yeeyuntech.com";
+    private static String mDebugServer = "http://api.tianapi.com/";
+    private static String mReleaseServer = "http://api.tianapi.com/";
 
     private static String mServer = mDebugServer;
 

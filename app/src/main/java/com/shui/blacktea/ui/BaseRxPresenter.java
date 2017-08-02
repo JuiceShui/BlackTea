@@ -6,7 +6,7 @@
 package com.shui.blacktea.ui;
 
 import com.shui.blacktea.App;
-import com.shui.blacktea.data.retrofit.RetrofitHelper;
+import com.shui.blacktea.data.RetrofitHelper;
 import com.yeeyuntech.framework.ui.IYYLoadView;
 import com.yeeyuntech.framework.ui.YYRxPresenter;
 
@@ -21,6 +21,9 @@ public abstract class BaseRxPresenter<T extends IYYLoadView> extends YYRxPresent
 
     protected final String TAG = getClass().getSimpleName();
     protected App mApp;
+    protected final String KEY = "f8d6bf3d8a2e5daa7fd6eaf1cfbe5439";
+    protected String mNum = "20";
+    protected String mPage = "1";
     protected RetrofitHelper mRetrofitHelper;
 
     public BaseRxPresenter(App mApp, RetrofitHelper mRetrofitHelper) {

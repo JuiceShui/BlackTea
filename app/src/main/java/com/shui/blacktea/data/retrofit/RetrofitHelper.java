@@ -6,13 +6,9 @@
 package com.shui.blacktea.data.retrofit;
 
 
-import android.text.TextUtils;
-
 import com.shui.blacktea.App;
 import com.shui.blacktea.config.AppCfg;
-import com.shui.blacktea.data.AESManager;
 import com.shui.blacktea.data.APIPath;
-import com.shui.blacktea.data.RSAManager;
 import com.yeeyuntech.framework.data.bean.ReqMap;
 import com.yeeyuntech.framework.data.bean.RespBean;
 import com.yeeyuntech.framework.data.retrofit.IProxyHandler;
@@ -20,13 +16,11 @@ import com.yeeyuntech.framework.data.retrofit.YYRetrofitHelper;
 import com.yeeyuntech.framework.data.retrofit.api.AESRetrofitAPI;
 import com.yeeyuntech.framework.data.retrofit.api.PublicRetrofitAPI;
 import com.yeeyuntech.framework.data.retrofit.api.RetrofitAPI;
-import com.yeeyuntech.framework.utils.crypto.Digest;
 
 import java.io.File;
 import java.lang.reflect.InvocationHandler;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
@@ -204,4 +198,15 @@ public class RetrofitHelper implements APIPath {
         }
     }
     // ==================================================  未登录 使用 不加密的请求方式  登陆之后 采用加密的请求 =================================
+
+
+    public Observable<RespBean> getNBANews(String key, String num, String page) {
+        Map<String, String> params = new HashMap<>();
+        params.put("key", key);
+        params.put("num", num);
+        params.put("page", page);
+        return getRetrofitAPI().get(NBA_NEWS, params)
+                .map(new RespFunction())
+                .subscribeOn(Schedulers.io());
+    }
 }

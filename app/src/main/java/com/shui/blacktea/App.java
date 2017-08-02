@@ -54,12 +54,11 @@ public class App extends YYApplication {
 
     public static AppComponent getAppComponent() {
         if (mAppComponent == null) {
-           mAppComponent = DaggerAppComponent.builder()
+            mAppComponent = DaggerAppComponent.builder()
                     .appModule(new AppModule(mInstance))
                     .build();
         }
         return mAppComponent;
-        //return null;
     }
 /*
     public void setUser(UserEntity u) {

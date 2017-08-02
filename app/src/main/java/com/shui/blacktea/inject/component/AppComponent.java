@@ -6,7 +6,7 @@
 package com.shui.blacktea.inject.component;
 
 import com.shui.blacktea.App;
-import com.shui.blacktea.data.retrofit.RetrofitHelper;
+import com.shui.blacktea.data.RetrofitHelper;
 import com.shui.blacktea.inject.module.AppModule;
 
 import javax.inject.Singleton;
