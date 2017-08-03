@@ -3,6 +3,7 @@ package com.shui.blacktea.ui.news;
 import android.content.Context;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +19,7 @@ import com.shui.blacktea.data.API.TXApi;
 import com.shui.blacktea.databinding.FragmentNewsBinding;
 import com.shui.blacktea.entity.NewsEntity;
 import com.shui.blacktea.ui.BaseFragment;
+import com.shui.blacktea.ui.home.HomeActivity;
 import com.shui.blacktea.ui.news.contract.NewsContract;
 import com.shui.blacktea.ui.news.presenter.NewsPresenter;
 import com.shui.blacktea.utils.RandomNumberUtil;
@@ -76,6 +78,8 @@ public class NewsFragment extends BaseFragment implements NewsContract.View {
     public void initViews() {
         ((SupportActivity) mActivity).setSupportActionBar(mBinding.toolbar);
         setHasOptionsMenu(true);
+        ((HomeActivity) mActivity).setToolbar(mBinding.toolbar);
+        mBinding.toolbar.setTitle("新闻");
         mAdapter = new NewsAdapter(R.layout.item_news, mData);
         mBinding.recycler.addItemDecoration(new DividerItemDecoration(mActivity, VERTICAL));
         mBinding.recycler.setLayoutManager(new LinearLayoutManager(mActivity));
@@ -106,6 +110,20 @@ public class NewsFragment extends BaseFragment implements NewsContract.View {
         StatusBarUtils.setPaddingSmart(mActivity, mBinding.recycler);
         StatusBarUtils.setMargin(mActivity, mBinding.header);
         StatusBarUtils.setPaddingSmart(mActivity, mBinding.blurView);
+        mBinding.recycler.addOnScrollListener(new RecyclerViewScrollDetector() {
+
+            @Override
+            void onScrollUp() {
+                //System.out.println("onScrollUp");
+                mBinding.fabMenu.animate().translationY(mBinding.fabMenu.getHeight()).setDuration(200);
+                mBinding.fabMenu.collapse();
+            }
+
+            @Override
+            void onScrollDown() {
+                mBinding.fabMenu.animate().translationY(0).setDuration(200);
+            }
+        });
     }
 
     @Override
@@ -155,5 +173,34 @@ public class NewsFragment extends BaseFragment implements NewsContract.View {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
+    }
+
+    abstract class RecyclerViewScrollDetector extends RecyclerView.OnScrollListener {
+        private int mScrollThreshold = 5;
+
+        abstract void onScrollUp();
+
+        abstract void onScrollDown();
+
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            boolean isSignificantDelta = Math.abs(dy) > mScrollThreshold;
+            if (isSignificantDelta) {
+                if (dy > 0) {
+                    onScrollUp();
+                } else {
+                    onScrollDown();
+                }
+            }
+        }
+
+        public void setScrollThreshold(int scrollThreshold) {
+            mScrollThreshold = scrollThreshold;
+        }
     }
 }

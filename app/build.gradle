@@ -89,4 +89,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.squareup.retrofit2:converter-gson:+'
     compile 'com.squareup.okhttp3:logging-interceptor:+'
+
+    compile 'com.getbase:floatingactionbutton:1.10.1'
 }

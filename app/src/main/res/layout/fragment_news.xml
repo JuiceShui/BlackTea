@@ -4,51 +4,101 @@
 
     </data>
 
+
     <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorBackgroudDark"
         android:fitsSystemWindows="false">
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/refresh_layout"
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:srlAccentColor="@android:color/white"
-            app:srlEnableHeaderTranslationContent="false"
-            app:srlEnableNestedScrolling="false"
-            app:srlEnablePreviewInEditMode="false"
-            app:srlPrimaryColor="@color/colorPrimary">
+            android:layout_height="match_parent">
 
-            <com.scwang.smartrefresh.header.MaterialHeader
-                android:id="@+id/header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="?attr/actionBarSize" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler"
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refresh_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:clipToPadding="false"
-                android:paddingTop="?attr/actionBarSize" />
+                app:srlAccentColor="@android:color/white"
+                app:srlEnableHeaderTranslationContent="false"
+                app:srlEnableNestedScrolling="false"
+                app:srlEnablePreviewInEditMode="false"
+                app:srlPrimaryColor="@color/colorPrimary">
 
-            <com.scwang.smartrefresh.layout.footer.BallPulseFooter
+                <com.scwang.smartrefresh.header.MaterialHeader
+                    android:id="@+id/header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="?attr/actionBarSize" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:clipToPadding="false"
+                    android:paddingTop="?attr/actionBarSize" />
+
+                <com.scwang.smartrefresh.layout.footer.BallPulseFooter
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+            <com.shui.blacktea.widget.RealtimeBlurView
+                android:id="@+id/blur_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+                android:layout_height="?attr/actionBarSize"
+                app:realtimeBlurRadius="5dp"
+                app:realtimeOverlayColor="@color/colorPrimaryOverlay" />
 
-        <com.shui.blacktea.widget.RealtimeBlurView
-            android:id="@+id/blur_view"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:realtimeBlurRadius="5dp"
-            app:realtimeOverlayColor="@color/colorPrimaryOverlay" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/AppTheme.Toolbar"
+                android:background="@android:color/transparent" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            style="@style/AppTheme.Toolbar"
-            android:background="@android:color/transparent" />
+            <com.getbase.floatingactionbutton.FloatingActionsMenu
+                android:id="@+id/fab_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="bottom|right"
+                app:fab_addButtonColorNormal="@color/white"
+                app:fab_addButtonColorPressed="@color/white_pressed"
+                app:fab_addButtonPlusIconColor="@color/black_3"
+                app:fab_addButtonSize="normal"
+                app:fab_addButtonStrokeVisible="false">
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/white"
+                    app:fab_colorPressed="@color/white_pressed"
+                    app:fab_icon="@drawable/ic_fab_star"
+                    app:fab_title="社会" />
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/white"
+                    app:fab_colorPressed="@color/white_pressed"
+                    app:fab_title="NBA" />
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/white"
+                    app:fab_colorPressed="@color/white_pressed"
+                    app:fab_title="足球" />
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/white"
+                    app:fab_colorPressed="@color/white_pressed"
+                    app:fab_title="军事" />
+
+            </com.getbase.floatingactionbutton.FloatingActionsMenu>
+        </android.support.design.widget.CoordinatorLayout>
     </FrameLayout>
+
 </layout>

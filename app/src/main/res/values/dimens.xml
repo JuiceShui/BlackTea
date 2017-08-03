@@ -17,6 +17,7 @@
 
     <dimen name="textsize_small">12sp</dimen>
     <dimen name="textsize_content">14sp</dimen>
+    <dimen name="textsize_normal">15sp</dimen>
     <dimen name="textsize_titlesmall">16sp</dimen>
     <dimen name="textsize_title">17sp</dimen>
     <dimen name="textsize_titlelarge">19sp</dimen>
@@ -34,4 +35,8 @@
     <dimen name="item_user_line_width">1dp</dimen>
     <dimen name="item_user_pic_line_container_width">40dp</dimen>
     <dimen name="item_user_margin_top">20dp</dimen>
+
+
+    <!--news-->
+    <dimen name="fab_size">40dp</dimen>
 </resources>

@@ -1,4 +1,5 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -7,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/colorPrimary"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -24,7 +25,8 @@
                 android:layout_height="wrap_content"
                 android:width="80dp"
                 android:text="2017-12-20"
-                android:textSize="15sp" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize_normal" />
 
             <TextView
                 android:id="@+id/tv_time"
@@ -33,7 +35,9 @@
                 android:layout_gravity="center"
                 android:width="80dp"
                 android:gravity="center"
-                android:text="22:30" />
+                android:text="22:30"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize_normal" />
         </LinearLayout>
 
         <FrameLayout
@@ -44,33 +48,89 @@
                 android:layout_width="@dimen/item_user_line_width"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
-                android:background="#44000000" />
+                android:background="@color/white" />
 
             <ImageView
+                android:id="@+id/iv_type_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="@dimen/item_user_margin_top"
                 android:background="@drawable/item_user_round_bg"
                 android:padding="5dp"
-                android:src="@drawable/ic_menu_camera" />
+                app:srcCompat="@drawable/ic_feed_list_favorite" />
         </FrameLayout>
 
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
+            android:background="@color/colorPrimary"
             android:paddingTop="20dp">
 
-            <TextView
-                android:id="@+id/tv_message"
+            <LinearLayout
+                android:id="@+id/ll_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/item_user_msg_bg"
+                    android:padding="@dimen/dp_10"
+                    android:text="dasdasdasdsadasddsdasdasdasdsadasddsdasdasdasdsadasddsdasdasdasdsadasddsdasdasdasdsadasddsdasdasdasdsadasdds"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/textsize_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/menu" />
+
+                <TextView
+                    android:id="@+id/tv_img_des"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="@dimen/textsize_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_like"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:background="@drawable/item_user_msg_bg"
-                android:padding="@dimen/dp_10"
-                android:text="ddd\ndd\nddddd\nndddddndddddndddddndddddndddddndddddndddddndddddnddddd"
-                android:textColor="@color/black" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_avatar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/menu" />
+
+                <TextView
+                    android:id="@+id/tv_like_des"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:paddingTop="3dp"
+                    android:text="dsadsadsadsadasdasdasdasddddddddddddddddddddddddddddddaaaaa"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/textsize_content" />
+            </LinearLayout>
         </FrameLayout>
 
     </LinearLayout>
