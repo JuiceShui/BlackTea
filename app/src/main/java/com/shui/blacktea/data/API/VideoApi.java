@@ -1,6 +1,9 @@
 package com.shui.blacktea.data.API;
 
-import com.shui.blacktea.entity.VideoMixEntity;
+import com.shui.blacktea.entity.VideoChoiceEntity;
+import com.shui.blacktea.entity.VideoEntertainmentEntity;
+import com.shui.blacktea.entity.VideoFunEntity;
+import com.shui.blacktea.entity.VideoHotEntity;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -37,7 +40,18 @@ public interface VideoApi {
      * @return 被观察者
      */
     @GET("nc/video/list/{id}/n/{startPage}-10.html")
-    Observable<VideoMixEntity> getVideoList(
+    Observable<VideoHotEntity> getHotVideoList(
             @Path("id") String id, @Path("startPage") int startPage);
 
+    @GET("nc/video/list/{id}/n/{startPage}-10.html")
+    Observable<VideoEntertainmentEntity> getEntertainmentVideoList(
+            @Path("id") String id, @Path("startPage") int startPage);
+
+    @GET("nc/video/list/{id}/n/{startPage}-10.html")
+    Observable<VideoFunEntity> getFunVideoList(
+            @Path("id") String id, @Path("startPage") int startPage);
+
+    @GET("nc/video/list/{id}/n/{startPage}-10.html")
+    Observable<VideoChoiceEntity> getChoiceVideoList(
+            @Path("id") String id, @Path("startPage") int startPage);
 }

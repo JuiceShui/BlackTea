@@ -1,1 +1,1 @@
-include ':app', ':yee-framework'
+include ':app', ':yee-framework', ':nicevideoplayer'

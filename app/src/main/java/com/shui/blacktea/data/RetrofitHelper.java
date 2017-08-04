@@ -7,7 +7,10 @@ import com.shui.blacktea.data.API.TXApi;
 import com.shui.blacktea.data.API.VideoApi;
 import com.shui.blacktea.data.response.TXResponse;
 import com.shui.blacktea.entity.NewsEntity;
-import com.shui.blacktea.entity.VideoMixEntity;
+import com.shui.blacktea.entity.VideoChoiceEntity;
+import com.shui.blacktea.entity.VideoEntertainmentEntity;
+import com.shui.blacktea.entity.VideoFunEntity;
+import com.shui.blacktea.entity.VideoHotEntity;
 import com.shui.blacktea.utils.NetWorkUtil;
 
 import java.io.File;
@@ -111,7 +114,7 @@ public class RetrofitHelper {
     }
 
     /**
-     * 知乎
+     * video
      *
      * @return
      */
@@ -125,6 +128,11 @@ public class RetrofitHelper {
         return videoRetrofit.create(VideoApi.class);
     }
 
+    /**
+     * 新闻
+     *
+     * @return
+     */
     private static TXApi getTxApi() {
         Retrofit txRetrofit = new Retrofit.Builder()
                 .baseUrl(TXApi.HOST)
@@ -137,12 +145,51 @@ public class RetrofitHelper {
 
 
     /******TXNEWS******/
+
+
     public Observable<TXResponse<List<NewsEntity>>> getTXNews(String cate, int num, int page) {
         return txApi.getTXNews(cate, TXApi.KEY, num, page);
     }
 
-    //热门视频
-    public Observable<VideoMixEntity> getVideoList(int startPage) {
-        return videoApi.getVideoList(VideoApi.VIDEO_HOT_ID, startPage);
+
+    /***********  Video List******************/
+    /**
+     * 热门视频
+     *
+     * @param startPage
+     * @return
+     */
+    public Observable<VideoHotEntity> getHotVideoList(int startPage) {
+        return videoApi.getHotVideoList(VideoApi.VIDEO_HOT_ID, startPage);
+    }
+
+    /**
+     * 娱乐视频
+     *
+     * @param startPage
+     * @return
+     */
+    public Observable<VideoEntertainmentEntity> getEntertainmentVideoList(int startPage) {
+        return videoApi.getEntertainmentVideoList(VideoApi.VIDEO_ENTERTAINMENT_ID, startPage);
+    }
+
+    /**
+     * 搞笑视频
+     *
+     * @param startPage
+     * @return
+     */
+    public Observable<VideoFunEntity> getFunVideoList(int startPage) {
+        return videoApi.getFunVideoList(VideoApi.VIDEO_HOT_ID, startPage);
+    }
+
+    /**
+     * 精品视频
+     *
+     * @param startPage
+     * @return
+     */
+    public Observable<VideoChoiceEntity> getChoiceVideoList(int startPage) {
+        return videoApi.getChoiceVideoList(VideoApi.VIDEO_HOT_ID, startPage);
     }
 }
