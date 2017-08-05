@@ -244,7 +244,11 @@ public class NewsFragment extends BaseFragment implements NewsContract.View, Vie
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                mBinding.getRoot().findViewById(v.getId()).animate().scaleX(1).scaleY(1).alpha(1);
+                mBinding.getRoot().findViewById(v.getId()).animate().scaleX(1).scaleY(1).alpha(1).setDuration(300);
+                if (mBinding.fabMenu.isExpanded()) {
+                    mBinding.fabMenu.collapse();
+                }
+                mBinding.getRoot().findViewById(v.getId()).clearAnimation();
             }
 
             @Override
