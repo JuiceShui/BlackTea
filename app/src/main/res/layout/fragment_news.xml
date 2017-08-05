@@ -2,6 +2,9 @@
 
     <data>
 
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
     </data>
 
 
@@ -66,36 +69,48 @@
                 app:fab_addButtonColorPressed="@color/white_pressed"
                 app:fab_addButtonPlusIconColor="@color/black_3"
                 app:fab_addButtonSize="normal"
-                app:fab_addButtonStrokeVisible="false">
+                app:fab_addButtonStrokeVisible="false"
+                app:fab_labelStyle="@style/menu_labels_style">
 
                 <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_entertainment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{click.onClick}"
                     app:fab_colorNormal="@color/white"
                     app:fab_colorPressed="@color/white_pressed"
-                    app:fab_icon="@drawable/ic_fab_star"
-                    app:fab_title="社会" />
+                    app:fab_icon="@drawable/ic_fab_entertainment"
+                    app:fab_title="娱乐" />
 
                 <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_fun"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{click.onClick}"
                     app:fab_colorNormal="@color/white"
                     app:fab_colorPressed="@color/white_pressed"
-                    app:fab_title="NBA" />
+                    app:fab_icon="@drawable/ic_fab_fun"
+                    app:fab_title="搞笑" />
 
                 <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_pet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{click.onClick}"
                     app:fab_colorNormal="@color/white"
                     app:fab_colorPressed="@color/white_pressed"
-                    app:fab_title="足球" />
+                    app:fab_icon="@drawable/ic_fab_pet"
+                    app:fab_title="宠物" />
 
                 <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_sport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{click.onClick}"
                     app:fab_colorNormal="@color/white"
                     app:fab_colorPressed="@color/white_pressed"
-                    app:fab_title="军事" />
+                    app:fab_icon="@drawable/ic_fab_sport"
+                    app:fab_title="体育" />
 
             </com.getbase.floatingactionbutton.FloatingActionsMenu>
         </android.support.design.widget.CoordinatorLayout>

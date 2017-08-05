@@ -17,6 +17,7 @@ public interface YYApi {
     String HOST = "http://route.showapi.com/";
     String APPID = "43457";
     String APPSIGN = "a15896a6369b47cf89591702f74f9970";
+    int PAGE_SIZE = 20;
     //视频
     String CATE_VIDEO = "255-1";
     String TYPE_VIDEO = "41";

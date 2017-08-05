@@ -1,5 +1,6 @@
 package com.shui.blacktea.ui.news;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +16,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.shui.blacktea.R;
-import com.shui.blacktea.data.API.TXApi;
 import com.shui.blacktea.data.API.YYApi;
 import com.shui.blacktea.databinding.FragmentNewsBinding;
 import com.shui.blacktea.entity.WeiBoEntity;
@@ -43,7 +43,7 @@ import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
  * Created by Juice_ on 2017/8/1.
  */
 
-public class NewsFragment extends BaseFragment implements NewsContract.View {
+public class NewsFragment extends BaseFragment implements NewsContract.View, View.OnClickListener {
     @Inject
     FragmentNewsBinding mBinding;
     @Inject
@@ -53,7 +53,8 @@ public class NewsFragment extends BaseFragment implements NewsContract.View {
     private List<WeiBoEntity> mHeaderList = new ArrayList<>();
     private boolean isFirstOrRefresh = true;
     private Banner mBanner;
-    private int mType = YYApi.TYPE_WEIBO_ENTERTAINMENT;
+    private int mLastType = YYApi.TYPE_WEIBO_ENTERTAINMENT;
+    private int mCurrentType = YYApi.TYPE_WEIBO_ENTERTAINMENT;
 
     @Override
     public int getLayoutId() {
@@ -62,6 +63,7 @@ public class NewsFragment extends BaseFragment implements NewsContract.View {
 
     @Override
     protected View initBinding() {
+        mBinding.setClick(this);
         return mBinding.getRoot();
     }
 
@@ -91,14 +93,14 @@ public class NewsFragment extends BaseFragment implements NewsContract.View {
             public void onRefresh(final RefreshLayout refreshlayout) {
                 isFirstOrRefresh = true;
                 mHeaderList.clear();
-                mPresenter.getNewsList(mType, false);
+                mPresenter.getNewsList(mCurrentType, false);
             }
         });
         mBinding.refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
                 isFirstOrRefresh = false;
-                mPresenter.getNewsList(mType, true);
+                mPresenter.getNewsList(mCurrentType, true);
             }
         });
         View header = LayoutInflater.from(mActivity).inflate(R.layout.item_news_header, mBinding.recycler, false);
@@ -129,7 +131,7 @@ public class NewsFragment extends BaseFragment implements NewsContract.View {
 
     @Override
     public void getData() {
-        mPresenter.getNewsList(mType, false);
+        mPresenter.getNewsList(mCurrentType, false);
     }
 
     @Override
@@ -147,7 +149,7 @@ public class NewsFragment extends BaseFragment implements NewsContract.View {
         if (mBinding.refreshLayout.isLoading()) {
             mBinding.refreshLayout.finishLoadmore();
         }
-        if (list.size() < TXApi.PAGE_SIZE || list == null) {
+        if (list.size() < YYApi.PAGE_SIZE || list == null) {
             showToast("数据全部加载完毕");
             mBinding.refreshLayout.setLoadmoreFinished(true);//设置之后，将不会再触发加载事件
         }
@@ -160,6 +162,34 @@ public class NewsFragment extends BaseFragment implements NewsContract.View {
             mBanner.setImageLoader(new GlideImageLoader());
             mBanner.setImages(mHeaderList);
             mBanner.start();
+        }
+    }
+
+    @Override
+    public void onClick(final View v) {
+        switch (v.getId()) {
+            case R.id.fab_entertainment:
+                mCurrentType = YYApi.TYPE_WEIBO_ENTERTAINMENT;
+                fabClickAnim(v);
+                break;
+            case R.id.fab_fun:
+                mCurrentType = YYApi.TYPE_WEIBO_FUN;
+                fabClickAnim(v);
+                break;
+            case R.id.fab_pet:
+                mCurrentType = YYApi.TYPE_WEIBO_PET;
+                fabClickAnim(v);
+                break;
+            case R.id.fab_sport:
+                mCurrentType = YYApi.TYPE_WEIBO_SPORT;
+                fabClickAnim(v);
+                break;
+        }
+        if (!(mLastType == mCurrentType)) {
+            mLastType = mCurrentType;
+            mPresenter.getNewsList(mCurrentType, false);
+        } else {
+            mBinding.recycler.scrollToPosition(0);
         }
     }
 
@@ -203,5 +233,29 @@ public class NewsFragment extends BaseFragment implements NewsContract.View {
         public void setScrollThreshold(int scrollThreshold) {
             mScrollThreshold = scrollThreshold;
         }
+    }
+
+    private void fabClickAnim(final View v) {
+        mBinding.getRoot().findViewById(v.getId()).animate().scaleX(0).scaleY(0).alpha(0).setDuration(300).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mBinding.getRoot().findViewById(v.getId()).animate().scaleX(1).scaleY(1).alpha(1);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
     }
 }
