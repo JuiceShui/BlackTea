@@ -16,8 +16,9 @@ import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.shui.blacktea.R;
 import com.shui.blacktea.data.API.TXApi;
+import com.shui.blacktea.data.API.YYApi;
 import com.shui.blacktea.databinding.FragmentNewsBinding;
-import com.shui.blacktea.entity.NewsEntity;
+import com.shui.blacktea.entity.WeiBoEntity;
 import com.shui.blacktea.ui.BaseFragment;
 import com.shui.blacktea.ui.home.HomeActivity;
 import com.shui.blacktea.ui.news.contract.NewsContract;
@@ -48,11 +49,11 @@ public class NewsFragment extends BaseFragment implements NewsContract.View {
     @Inject
     NewsPresenter mPresenter;
     private NewsAdapter mAdapter;
-    private List<NewsEntity> mData = new ArrayList<>();
-    private List<NewsEntity> mHeaderList = new ArrayList<>();
+    private List<WeiBoEntity> mData = new ArrayList<>();
+    private List<WeiBoEntity> mHeaderList = new ArrayList<>();
     private boolean isFirstOrRefresh = true;
     private Banner mBanner;
-    private String mCate = TXApi.SOCIAL;
+    private int mType = YYApi.TYPE_WEIBO_ENTERTAINMENT;
 
     @Override
     public int getLayoutId() {
@@ -90,14 +91,14 @@ public class NewsFragment extends BaseFragment implements NewsContract.View {
             public void onRefresh(final RefreshLayout refreshlayout) {
                 isFirstOrRefresh = true;
                 mHeaderList.clear();
-                mPresenter.getNewsList(mCate, false);
+                mPresenter.getNewsList(mType, false);
             }
         });
         mBinding.refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
                 isFirstOrRefresh = false;
-                mPresenter.getNewsList(mCate, true);
+                mPresenter.getNewsList(mType, true);
             }
         });
         View header = LayoutInflater.from(mActivity).inflate(R.layout.item_news_header, mBinding.recycler, false);
@@ -128,11 +129,11 @@ public class NewsFragment extends BaseFragment implements NewsContract.View {
 
     @Override
     public void getData() {
-        mPresenter.getNewsList(mCate, false);
+        mPresenter.getNewsList(mType, false);
     }
 
     @Override
-    public void showNewsResult(List<NewsEntity> list, boolean isLoadMore) {
+    public void showNewsResult(List<WeiBoEntity> list, boolean isLoadMore) {
         if (!isLoadMore) {
             mData.clear();
             mBinding.refreshLayout.setLoadmoreFinished(false);
@@ -165,7 +166,7 @@ public class NewsFragment extends BaseFragment implements NewsContract.View {
     private class GlideImageLoader extends ImageLoader {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
-            Glide.with(context).load(((NewsEntity) path).getPicUrl()).into(imageView);
+            Glide.with(context).load(((WeiBoEntity) path).getImg()).into(imageView);
         }
     }
 

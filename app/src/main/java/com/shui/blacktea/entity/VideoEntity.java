@@ -2,328 +2,184 @@ package com.shui.blacktea.entity;
 
 /**
  * Description:
- * Created by Juice_ on 2017/8/1.
+ * Created by Juice_ on 2017/8/5.
  */
 
 public class VideoEntity {
 
+
     /**
-     * sizeHD : 0
-     * videoTopic : {"ename":"T1476691934012","tname":"时事儿","alias":"关注时下热点新闻资讯","topic_icons":"http://img2.cache.netease.com/m/newsapp/topic_icons/T1476691934012.png","tid":"T1476691934012"}
-     * mp4Hd_url : null
-     * description :
-     * title : 挡道冲突司机威胁环卫工：有病也打死你
-     * mp4_url : http://flv1.bn.netease.com/videolib3/1708/01/iwcLR0010/SD/iwcLR0010-mobile.mp4
-     * vid : VCPRD0GR8
-     * cover : http://vimg2.ws.126.net/image/snapshot/2017/8/R/9/VCPRD0GR9.jpg
-     * sizeSHD : 0
-     * playersize : 1
-     * ptime : 2017-08-01 17:33:44
-     * m3u8_url : http://flv.bn.netease.com/videolib3/1708/01/iwcLR0010/SD/movie_index.m3u8
-     * topicImg : http://vimg2.ws.126.net/image/snapshot/2016/10/3/6/VC2LLLL36.jpg
-     * votecount : 0
-     * length : 37
-     * videosource : 新媒体
-     * m3u8Hd_url : null
-     * sizeSD : 2775
-     * topicSid : VC2LLLL34
-     * playCount : 0
-     * replyCount : 0
-     * replyBoard : video_bbs
-     * replyid : CPRD0GR8008535RB
-     * topicName : 时事儿
-     * sectiontitle :
-     * topicDesc : 关注时下热点新闻资讯
+     * text :
+     * 不要用蹩脚的外语去撩老外，他也许是一个被晒黑的中国人
+     * <p>
+     * hate : 54
+     * videotime : 0
+     * voicetime : 0
+     * weixin_url : http://m.budejie.com/detail-25756584.html/
+     * profile_image : http://wimg.spriteapp.cn/profile/large/2016/11/17/582d05385f6a6_mini.jpg
+     * width : 0
+     * voiceuri :
+     * type : 41
+     * id : 25756584
+     * love : 263
+     * height : 0
+     * video_uri : http://mvideo.spriteapp.cn/video/2017/0716/dfce4024-6a1c-11e7-9e11-1866daeb0df1_wpc.mp4
+     * voicelength : 0
+     * name : 我是陈苗
+     * create_time : 2017-07-18 22:00:07
      */
 
-    private int sizeHD;
-    private VideoTopicBean videoTopic;
-    private Object mp4Hd_url;
-    private String description;
-    private String title;
-    private String mp4_url;
-    private String vid;
-    private String cover;
-    private int sizeSHD;
-    private int playersize;
-    private String ptime;
-    private String m3u8_url;
-    private String topicImg;
-    private int votecount;
-    private int length;
-    private String videosource;
-    private Object m3u8Hd_url;
-    private int sizeSD;
-    private String topicSid;
-    private int playCount;
-    private int replyCount;
-    private String replyBoard;
-    private String replyid;
-    private String topicName;
-    private String sectiontitle;
-    private String topicDesc;
+    private String text;
+    private String hate;
+    private String videotime;
+    private String voicetime;
+    private String weixin_url;
+    private String profile_image;
+    private String width;
+    private String voiceuri;
+    private String type;
+    private String id;
+    private String love;
+    private String height;
+    private String video_uri;
+    private String voicelength;
+    private String name;
+    private String create_time;
+    private long videoLength;
 
-    public int getSizeHD() {
-        return sizeHD;
+    public long getVideoLength() {
+        return videoLength;
     }
 
-    public void setSizeHD(int sizeHD) {
-        this.sizeHD = sizeHD;
+    public void setVideoLength(long videoLength) {
+        this.videoLength = videoLength;
     }
 
-    public VideoTopicBean getVideoTopic() {
-        return videoTopic;
+    public String getText() {
+        return text;
     }
 
-    public void setVideoTopic(VideoTopicBean videoTopic) {
-        this.videoTopic = videoTopic;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public Object getMp4Hd_url() {
-        return mp4Hd_url;
+    public String getHate() {
+        return hate;
     }
 
-    public void setMp4Hd_url(Object mp4Hd_url) {
-        this.mp4Hd_url = mp4Hd_url;
+    public void setHate(String hate) {
+        this.hate = hate;
     }
 
-    public String getDescription() {
-        return description;
+    public String getVideotime() {
+        return videotime;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setVideotime(String videotime) {
+        this.videotime = videotime;
     }
 
-    public String getTitle() {
-        return title;
+    public String getVoicetime() {
+        return voicetime;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setVoicetime(String voicetime) {
+        this.voicetime = voicetime;
     }
 
-    public String getMp4_url() {
-        return mp4_url;
+    public String getWeixin_url() {
+        return weixin_url;
     }
 
-    public void setMp4_url(String mp4_url) {
-        this.mp4_url = mp4_url;
+    public void setWeixin_url(String weixin_url) {
+        this.weixin_url = weixin_url;
     }
 
-    public String getVid() {
-        return vid;
+    public String getProfile_image() {
+        return profile_image;
     }
 
-    public void setVid(String vid) {
-        this.vid = vid;
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
     }
 
-    public String getCover() {
-        return cover;
+    public String getWidth() {
+        return width;
     }
 
-    public void setCover(String cover) {
-        this.cover = cover;
+    public void setWidth(String width) {
+        this.width = width;
     }
 
-    public int getSizeSHD() {
-        return sizeSHD;
+    public String getVoiceuri() {
+        return voiceuri;
     }
 
-    public void setSizeSHD(int sizeSHD) {
-        this.sizeSHD = sizeSHD;
+    public void setVoiceuri(String voiceuri) {
+        this.voiceuri = voiceuri;
     }
 
-    public int getPlayersize() {
-        return playersize;
+    public String getType() {
+        return type;
     }
 
-    public void setPlayersize(int playersize) {
-        this.playersize = playersize;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getPtime() {
-        return ptime;
+    public String getId() {
+        return id;
     }
 
-    public void setPtime(String ptime) {
-        this.ptime = ptime;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getM3u8_url() {
-        return m3u8_url;
+    public String getLove() {
+        return love;
     }
 
-    public void setM3u8_url(String m3u8_url) {
-        this.m3u8_url = m3u8_url;
+    public void setLove(String love) {
+        this.love = love;
     }
 
-    public String getTopicImg() {
-        return topicImg;
+    public String getHeight() {
+        return height;
     }
 
-    public void setTopicImg(String topicImg) {
-        this.topicImg = topicImg;
+    public void setHeight(String height) {
+        this.height = height;
     }
 
-    public int getVotecount() {
-        return votecount;
+    public String getVideo_uri() {
+        return video_uri;
     }
 
-    public void setVotecount(int votecount) {
-        this.votecount = votecount;
+    public void setVideo_uri(String video_uri) {
+        this.video_uri = video_uri;
     }
 
-    public int getLength() {
-        return length;
+    public String getVoicelength() {
+        return voicelength;
     }
 
-    public void setLength(int length) {
-        this.length = length;
+    public void setVoicelength(String voicelength) {
+        this.voicelength = voicelength;
     }
 
-    public String getVideosource() {
-        return videosource;
+    public String getName() {
+        return name;
     }
 
-    public void setVideosource(String videosource) {
-        this.videosource = videosource;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Object getM3u8Hd_url() {
-        return m3u8Hd_url;
+    public String getCreate_time() {
+        return create_time;
     }
 
-    public void setM3u8Hd_url(Object m3u8Hd_url) {
-        this.m3u8Hd_url = m3u8Hd_url;
-    }
-
-    public int getSizeSD() {
-        return sizeSD;
-    }
-
-    public void setSizeSD(int sizeSD) {
-        this.sizeSD = sizeSD;
-    }
-
-    public String getTopicSid() {
-        return topicSid;
-    }
-
-    public void setTopicSid(String topicSid) {
-        this.topicSid = topicSid;
-    }
-
-    public int getPlayCount() {
-        return playCount;
-    }
-
-    public void setPlayCount(int playCount) {
-        this.playCount = playCount;
-    }
-
-    public int getReplyCount() {
-        return replyCount;
-    }
-
-    public void setReplyCount(int replyCount) {
-        this.replyCount = replyCount;
-    }
-
-    public String getReplyBoard() {
-        return replyBoard;
-    }
-
-    public void setReplyBoard(String replyBoard) {
-        this.replyBoard = replyBoard;
-    }
-
-    public String getReplyid() {
-        return replyid;
-    }
-
-    public void setReplyid(String replyid) {
-        this.replyid = replyid;
-    }
-
-    public String getTopicName() {
-        return topicName;
-    }
-
-    public void setTopicName(String topicName) {
-        this.topicName = topicName;
-    }
-
-    public String getSectiontitle() {
-        return sectiontitle;
-    }
-
-    public void setSectiontitle(String sectiontitle) {
-        this.sectiontitle = sectiontitle;
-    }
-
-    public String getTopicDesc() {
-        return topicDesc;
-    }
-
-    public void setTopicDesc(String topicDesc) {
-        this.topicDesc = topicDesc;
-    }
-
-    public static class VideoTopicBean {
-        /**
-         * ename : T1476691934012
-         * tname : 时事儿
-         * alias : 关注时下热点新闻资讯
-         * topic_icons : http://img2.cache.netease.com/m/newsapp/topic_icons/T1476691934012.png
-         * tid : T1476691934012
-         */
-
-        private String ename;
-        private String tname;
-        private String alias;
-        private String topic_icons;
-        private String tid;
-
-        public String getEname() {
-            return ename;
-        }
-
-        public void setEname(String ename) {
-            this.ename = ename;
-        }
-
-        public String getTname() {
-            return tname;
-        }
-
-        public void setTname(String tname) {
-            this.tname = tname;
-        }
-
-        public String getAlias() {
-            return alias;
-        }
-
-        public void setAlias(String alias) {
-            this.alias = alias;
-        }
-
-        public String getTopic_icons() {
-            return topic_icons;
-        }
-
-        public void setTopic_icons(String topic_icons) {
-            this.topic_icons = topic_icons;
-        }
-
-        public String getTid() {
-            return tid;
-        }
-
-        public void setTid(String tid) {
-            this.tid = tid;
-        }
+    public void setCreate_time(String create_time) {
+        this.create_time = create_time;
     }
 }

@@ -47,12 +47,12 @@
                 android:id="@+id/blur_view"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:realtimeBlurRadius="5dp"
+                app:realtimeBlurRadius="1dp"
                 app:realtimeOverlayColor="@color/colorPrimaryOverlay" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
-                style="@style/AppTheme.Toolbar"
+                style="@style/AppTheme.Toolbar.Light"
                 android:background="@android:color/transparent" />
         </android.support.design.widget.CoordinatorLayout>
     </FrameLayout>

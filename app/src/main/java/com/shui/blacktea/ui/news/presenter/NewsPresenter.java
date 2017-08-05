@@ -1,16 +1,14 @@
 package com.shui.blacktea.ui.news.presenter;
 
 import com.shui.blacktea.App;
-import com.shui.blacktea.data.API.TXApi;
+import com.shui.blacktea.data.API.YYApi;
 import com.shui.blacktea.data.RetrofitHelper;
-import com.shui.blacktea.data.response.TXResponse;
+import com.shui.blacktea.data.response.YYResponse;
 import com.shui.blacktea.data.retrofit.DefaultErrorConsumer;
-import com.shui.blacktea.entity.NewsEntity;
+import com.shui.blacktea.entity.WeiBoEntity;
 import com.shui.blacktea.ui.BaseRxPresenter;
 import com.shui.blacktea.ui.news.contract.NewsContract;
 import com.yeeyuntech.framework.utils.RxUtils;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -26,7 +24,8 @@ import io.reactivex.functions.Consumer;
 public class NewsPresenter extends BaseRxPresenter<NewsContract.View>
         implements NewsContract.Presenter {
     private int mPage = 1;
-    private String mCate = TXApi.SOCIAL;
+    private int mType = YYApi.TYPE_WEIBO_ENTERTAINMENT;
+    private String mSpace = YYApi.TYPE_WEIBO_SPACE_DAY;
 
     @Inject
     public NewsPresenter(App mApp, RetrofitHelper mRetrofitHelper) {
@@ -34,23 +33,22 @@ public class NewsPresenter extends BaseRxPresenter<NewsContract.View>
     }
 
     @Override
-    public void getNewsList(String cate, final boolean isLoadMore) {
-        if (!mCate.equals(cate)) {
+    public void getNewsList(int type, final boolean isLoadMore) {
+        if (!(mType == type)) {
             mPage = 1;
-            mCate = cate;
+            mType = type;
         }
         if (isLoadMore) {
             mPage += 1;
         } else {
             mPage = 1;
         }
-        System.out.println("page------:" + mCate + "----" + mPage);
-        Disposable disposable = mRetrofitHelper.getTXNews(mCate, TXApi.PAGE_SIZE, mPage)
-                .compose(RxUtils.<TXResponse<List<NewsEntity>>>applySchedulers())
-                .subscribe(new Consumer<TXResponse<List<NewsEntity>>>() {
+        Disposable disposable = mRetrofitHelper.getWeiBoNew(mType, mSpace, mPage)
+                .compose(RxUtils.<YYResponse<WeiBoEntity>>applySchedulers())
+                .subscribe(new Consumer<YYResponse<WeiBoEntity>>() {
                     @Override
-                    public void accept(@NonNull TXResponse<List<NewsEntity>> listTXResponse) throws Exception {
-                        mView.showNewsResult(listTXResponse.getNewslist(), isLoadMore);
+                    public void accept(@NonNull YYResponse<WeiBoEntity> weiBoEntityYYResponse) throws Exception {
+                        mView.showNewsResult(weiBoEntityYYResponse.getShowapi_res_body().getPagebean().getContentlist(), isLoadMore);
                     }
                 }, new DefaultErrorConsumer(mView));
         addSubscribe(disposable);

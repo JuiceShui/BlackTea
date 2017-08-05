@@ -1,6 +1,6 @@
 package com.shui.blacktea.ui.news.contract;
 
-import com.shui.blacktea.entity.NewsEntity;
+import com.shui.blacktea.entity.WeiBoEntity;
 import com.yeeyuntech.framework.ui.IYYLoadView;
 
 import java.util.List;
@@ -11,10 +11,10 @@ import java.util.List;
  */
 public interface NewsContract {
     interface View extends IYYLoadView {
-        void showNewsResult(List<NewsEntity> list, boolean isLoadMore);
+        void showNewsResult(List<WeiBoEntity> list, boolean isLoadMore);
     }
 
     interface Presenter {
-        void getNewsList(String cate, boolean isLoadMore);
+        void getNewsList(int type, boolean isLoadMore);
     }
 }

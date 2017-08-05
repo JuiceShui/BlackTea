@@ -9,7 +9,7 @@
     <dimen name="item_width">200dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
-
+    <dimen name="division_line">0.5dp</dimen>
     <dimen name="padding_common">10dp</dimen>
     <dimen name="padding_common_h">15dp</dimen>
     <dimen name="padding_common_v">10dp</dimen>
@@ -39,4 +39,8 @@
 
     <!--news-->
     <dimen name="fab_size">40dp</dimen>
+
+    <!--video-->
+    <dimen name="video_min_height">200dp</dimen>
+    <dimen name="video_divider_height">8dp</dimen>
 </resources>

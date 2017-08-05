@@ -4,13 +4,12 @@ import com.shui.blacktea.App;
 import com.shui.blacktea.BuildConfig;
 import com.shui.blacktea.config.Constants;
 import com.shui.blacktea.data.API.TXApi;
-import com.shui.blacktea.data.API.VideoApi;
+import com.shui.blacktea.data.API.YYApi;
 import com.shui.blacktea.data.response.TXResponse;
+import com.shui.blacktea.data.response.YYResponse;
 import com.shui.blacktea.entity.NewsEntity;
-import com.shui.blacktea.entity.VideoChoiceEntity;
-import com.shui.blacktea.entity.VideoEntertainmentEntity;
-import com.shui.blacktea.entity.VideoFunEntity;
-import com.shui.blacktea.entity.VideoHotEntity;
+import com.shui.blacktea.entity.VideoEntity;
+import com.shui.blacktea.entity.WeiBoEntity;
 import com.shui.blacktea.utils.NetWorkUtil;
 
 import java.io.File;
@@ -40,13 +39,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitHelper {
     private static OkHttpClient okHttpClient = null;
     private static TXApi txApi = null;
-    private static VideoApi videoApi = null;
+    private static YYApi yyApi = null;
 
     private void init() {
         initOkHttp();
-        videoApi = getVideoApi();
         txApi = getTxApi();
+        yyApi = getYYApi();
     }
+
 
     @Inject
     public RetrofitHelper() {
@@ -113,20 +113,6 @@ public class RetrofitHelper {
         okHttpClient = builder.build();
     }
 
-    /**
-     * video
-     *
-     * @return
-     */
-    private static VideoApi getVideoApi() {
-        Retrofit videoRetrofit = new Retrofit.Builder()
-                .baseUrl(VideoApi.HOST)
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        return videoRetrofit.create(VideoApi.class);
-    }
 
     /**
      * 新闻
@@ -143,6 +129,18 @@ public class RetrofitHelper {
         return txRetrofit.create(TXApi.class);
     }
 
+    /**
+     * @return
+     */
+    private YYApi getYYApi() {
+        Retrofit yyRetrofit = new Retrofit.Builder()
+                .baseUrl(YYApi.HOST)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+        return yyRetrofit.create(YYApi.class);
+    }
 
     /******TXNEWS******/
 
@@ -151,45 +149,28 @@ public class RetrofitHelper {
         return txApi.getTXNews(cate, TXApi.KEY, num, page);
     }
 
-
-    /***********  Video List******************/
     /**
-     * 热门视频
+     * 获取视频
      *
-     * @param startPage
+     * @param type
+     * @param title
+     * @param page
      * @return
      */
-    public Observable<VideoHotEntity> getHotVideoList(int startPage) {
-        return videoApi.getHotVideoList(VideoApi.VIDEO_HOT_ID, startPage);
+    public Observable<YYResponse<VideoEntity>> getVideo(String type, String title, int page) {
+        return yyApi.getYYVideo(type, title, page);
     }
 
     /**
-     * 娱乐视频
+     * 获取微博
      *
-     * @param startPage
+     * @param typeId
+     * @param space
+     * @param page
      * @return
      */
-    public Observable<VideoEntertainmentEntity> getEntertainmentVideoList(int startPage) {
-        return videoApi.getEntertainmentVideoList(VideoApi.VIDEO_ENTERTAINMENT_ID, startPage);
+    public Observable<YYResponse<WeiBoEntity>> getWeiBoNew(int typeId, String space, int page) {
+        return yyApi.getYYWeiBo(typeId, space, page);
     }
 
-    /**
-     * 搞笑视频
-     *
-     * @param startPage
-     * @return
-     */
-    public Observable<VideoFunEntity> getFunVideoList(int startPage) {
-        return videoApi.getFunVideoList(VideoApi.VIDEO_HOT_ID, startPage);
-    }
-
-    /**
-     * 精品视频
-     *
-     * @param startPage
-     * @return
-     */
-    public Observable<VideoChoiceEntity> getChoiceVideoList(int startPage) {
-        return videoApi.getChoiceVideoList(VideoApi.VIDEO_HOT_ID, startPage);
-    }
 }
