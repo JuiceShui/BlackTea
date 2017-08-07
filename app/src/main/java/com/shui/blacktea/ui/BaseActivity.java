@@ -8,6 +8,7 @@ package com.shui.blacktea.ui;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import com.shui.blacktea.App;
 import com.shui.blacktea.inject.component.ActivityComponent;
@@ -60,8 +61,17 @@ public abstract class BaseActivity extends YYActivity {
 
     }
 
-    protected void setToolBar(Toolbar toolBar) {
+    protected void setToolBar(Toolbar toolBar, String title) {
         setSupportActionBar(toolBar);
+        toolBar.setTitle(title);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressedSupport();
+            }
+        });
     }
 
     @Override

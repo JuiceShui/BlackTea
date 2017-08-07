@@ -11,8 +11,7 @@
     <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackgroudDark"
-        android:fitsSystemWindows="false">
+        android:background="@color/colorBackgroudDark">
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -59,6 +58,7 @@
                 style="@style/AppTheme.Toolbar"
                 android:background="@android:color/transparent" />
 
+
             <com.getbase.floatingactionbutton.FloatingActionsMenu
                 android:id="@+id/fab_menu"
                 android:layout_width="wrap_content"
@@ -71,6 +71,16 @@
                 app:fab_addButtonSize="normal"
                 app:fab_addButtonStrokeVisible="false"
                 app:fab_labelStyle="@style/menu_labels_style">
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{click.onClick}"
+                    app:fab_colorNormal="@color/white"
+                    app:fab_colorPressed="@color/white_pressed"
+                    app:fab_icon="@drawable/ic_fab_more"
+                    app:fab_title="更多" />
 
                 <com.getbase.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab_entertainment"
@@ -114,6 +124,31 @@
 
             </com.getbase.floatingactionbutton.FloatingActionsMenu>
         </android.support.design.widget.CoordinatorLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_over_lay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="加载中..."
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize_title" />
+        </LinearLayout>
+
     </FrameLayout>
 
 </layout>

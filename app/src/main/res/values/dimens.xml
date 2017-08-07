@@ -43,4 +43,12 @@
     <!--video-->
     <dimen name="video_min_height">200dp</dimen>
     <dimen name="video_divider_height">8dp</dimen>
+
+    <!--music-->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="text_size_common">16sp</dimen>
+    <dimen name="play_bar_height">57dp</dimen>
+    <dimen name="screen_tips_top">80dp</dimen>
+    <dimen name="divider_height">0.5dp</dimen>
 </resources>

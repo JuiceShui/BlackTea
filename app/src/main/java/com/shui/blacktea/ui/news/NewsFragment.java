@@ -1,7 +1,10 @@
 package com.shui.blacktea.ui.news;
 
-import android.animation.Animator;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,10 +15,12 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.shui.blacktea.R;
+import com.shui.blacktea.config.Constants;
 import com.shui.blacktea.data.API.YYApi;
 import com.shui.blacktea.databinding.FragmentNewsBinding;
 import com.shui.blacktea.entity.WeiBoEntity;
@@ -23,6 +28,7 @@ import com.shui.blacktea.ui.BaseFragment;
 import com.shui.blacktea.ui.home.HomeActivity;
 import com.shui.blacktea.ui.news.contract.NewsContract;
 import com.shui.blacktea.ui.news.presenter.NewsPresenter;
+import com.shui.blacktea.utils.CircularAnim;
 import com.shui.blacktea.utils.RandomNumberUtil;
 import com.shui.blacktea.utils.StatusBarUtils;
 import com.yeeyuntech.framework.ui.IYYPresenter;
@@ -51,10 +57,12 @@ public class NewsFragment extends BaseFragment implements NewsContract.View, Vie
     private NewsAdapter mAdapter;
     private List<WeiBoEntity> mData = new ArrayList<>();
     private List<WeiBoEntity> mHeaderList = new ArrayList<>();
+    private List<String> mHeaderTitleList = new ArrayList<>();
     private boolean isFirstOrRefresh = true;
     private Banner mBanner;
     private int mLastType = YYApi.TYPE_WEIBO_ENTERTAINMENT;
     private int mCurrentType = YYApi.TYPE_WEIBO_ENTERTAINMENT;
+    private boolean isOverLayVisible = false;
 
     @Override
     public int getLayoutId() {
@@ -127,6 +135,19 @@ public class NewsFragment extends BaseFragment implements NewsContract.View, Vie
                 mBinding.fabMenu.animate().translationY(0).setDuration(200);
             }
         });
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                WeiBoEntity bean = mData.get(position);
+                Intent intent = new Intent(mActivity, NewsDetailActivity.class);
+                intent.putExtra("pic", bean.getImg());
+                intent.putExtra("title", bean.getName());
+                intent.putExtra("link", bean.getUrl());
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(mActivity, view.findViewById(R.id.news_iv_thumb), Constants.TRANSITION_NAME);
+                startActivity(intent, options.toBundle());
+            }
+        });
     }
 
     @Override
@@ -155,13 +176,29 @@ public class NewsFragment extends BaseFragment implements NewsContract.View, Vie
         }
         if (isFirstOrRefresh && mData.size() > 5) {
             int headerNumber = RandomNumberUtil.getRandom(2, 5);
+            mHeaderList.clear();
+            mHeaderTitleList.clear();
             for (int i = 0; i < headerNumber; i++) {
                 mHeaderList.add(mData.get(i + 2));
+                mHeaderTitleList.add(mData.get(i + 2).getDesc());
             }
             isFirstOrRefresh = false;
+            mBanner.setBannerTitles(mHeaderTitleList);
             mBanner.setImageLoader(new GlideImageLoader());
             mBanner.setImages(mHeaderList);
             mBanner.start();
+        }
+        //展开动画
+        if (!isLoadMore && isOverLayVisible) {
+            CircularAnim.hide(mBinding.llOverLay).triggerView(mBinding.fabFun).go(new CircularAnim.OnAnimationEndListener() {
+                @Override
+                public void onAnimationEnd() {
+                    if (mBinding.fabMenu.isExpanded()) {
+                        mBinding.fabMenu.collapse();
+                    }
+                    isOverLayVisible = false;
+                }
+            });
         }
     }
 
@@ -170,27 +207,18 @@ public class NewsFragment extends BaseFragment implements NewsContract.View, Vie
         switch (v.getId()) {
             case R.id.fab_entertainment:
                 mCurrentType = YYApi.TYPE_WEIBO_ENTERTAINMENT;
-                fabClickAnim(v);
                 break;
             case R.id.fab_fun:
                 mCurrentType = YYApi.TYPE_WEIBO_FUN;
-                fabClickAnim(v);
                 break;
             case R.id.fab_pet:
                 mCurrentType = YYApi.TYPE_WEIBO_PET;
-                fabClickAnim(v);
                 break;
             case R.id.fab_sport:
                 mCurrentType = YYApi.TYPE_WEIBO_SPORT;
-                fabClickAnim(v);
                 break;
         }
-        if (!(mLastType == mCurrentType)) {
-            mLastType = mCurrentType;
-            mPresenter.getNewsList(mCurrentType, false);
-        } else {
-            mBinding.recycler.scrollToPosition(0);
-        }
+        fabClickAnim(v);
     }
 
     private class GlideImageLoader extends ImageLoader {
@@ -229,37 +257,40 @@ public class NewsFragment extends BaseFragment implements NewsContract.View, Vie
                 }
             }
         }
-
-        public void setScrollThreshold(int scrollThreshold) {
-            mScrollThreshold = scrollThreshold;
-        }
     }
 
     private void fabClickAnim(final View v) {
-        mBinding.getRoot().findViewById(v.getId()).animate().scaleX(0).scaleY(0).alpha(0).setDuration(300).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mBinding.getRoot().findViewById(v.getId()).animate().scaleX(1).scaleY(1).alpha(1).setDuration(300);
-                if (mBinding.fabMenu.isExpanded()) {
-                    mBinding.fabMenu.collapse();
+        if (v.getId() != R.id.fab_more) {
+            CircularAnim.show(mBinding.llOverLay).triggerView(mBinding.getRoot().findViewById(v.getId())).go(new CircularAnim.OnAnimationEndListener() {
+                @Override
+                public void onAnimationEnd() {
+                    isOverLayVisible = true;
+                    //开始请求
+                    if (!(mLastType == mCurrentType)) {
+                        mLastType = mCurrentType;
+                        mPresenter.getNewsList(mCurrentType, false);
+                    } else {
+                        mBinding.recycler.scrollToPosition(0);
+                        CircularAnim.hide(mBinding.llOverLay).triggerView(mBinding.getRoot().findViewById(v.getId())).go(new CircularAnim.OnAnimationEndListener() {
+                            @Override
+                            public void onAnimationEnd() {
+                                if (mBinding.fabMenu.isExpanded()) {
+                                    mBinding.fabMenu.collapse();
+                                }
+                            }
+                        });
+                    }
                 }
-                mBinding.getRoot().findViewById(v.getId()).clearAnimation();
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
+            });
+        } else {
+            CircularAnim.fullActivity(mActivity, mBinding.getRoot().findViewById(v.getId()))
+                    .colorOrImageRes(R.color.colorPrimary)
+                    .go(new CircularAnim.OnAnimationEndListener() {
+                        @Override
+                        public void onAnimationEnd() {
+                            startActivity(new Intent(mActivity, NewsCateSelectActivity.class));
+                        }
+                    });
+        }
     }
 }

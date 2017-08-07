@@ -49,6 +49,7 @@ public class VideoFragment extends BaseFragment implements VideoContract.View {
     private List<VideoEntity> mData = new ArrayList<>();
     private boolean pressedHome;
     private HomeKeyWatcher mHomeKeyWatcher;
+    private boolean mIsLoading = true;
 
     @Override
     public int getLayoutId() {
@@ -72,9 +73,11 @@ public class VideoFragment extends BaseFragment implements VideoContract.View {
 
     @Override
     public void initViews() {
+        mIsLoading = mBinding.llLoading.getVisibility() == View.VISIBLE;
         ((SupportActivity) mActivity).setSupportActionBar(mBinding.toolbar);
         setHasOptionsMenu(true);
         ((HomeActivity) mActivity).setToolbar(mBinding.toolbar);
+
         mBinding.toolbar.setTitle("视频");
         mAdapter = new VideoAdapter(R.layout.item_video, mData);
         mBinding.recycler.addItemDecoration(new DividerItemDecoration(mActivity, VERTICAL));
@@ -117,7 +120,6 @@ public class VideoFragment extends BaseFragment implements VideoContract.View {
 
     @Override
     public void showVideoList(List<VideoEntity> list, boolean isLoadMore) {
-        System.out.println(list.toString());
         if (!isLoadMore) {
             mData.clear();
             mBinding.refreshLayout.setLoadmoreFinished(false);
@@ -134,6 +136,11 @@ public class VideoFragment extends BaseFragment implements VideoContract.View {
         if (list.size() < VideoApi.PAGE_SIZE || list == null) {
             showToast("数据全部加载完毕");
             mBinding.refreshLayout.setLoadmoreFinished(true);//设置之后，将不会再触发加载事件
+        }
+        if (mIsLoading) {
+            mBinding.llLoading.animate().scaleY(0).scaleY(0).alpha(0).setDuration(300);
+            mBinding.llLoading.setVisibility(View.INVISIBLE);
+            mIsLoading = false;
         }
     }
 

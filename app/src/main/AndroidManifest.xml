@@ -10,6 +10,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 设备编号权限 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".App"
@@ -30,6 +33,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.news.NewsCateSelectActivity" />
+        <activity android:name=".ui.news.NewsDetailActivity" />
     </application>
 
 </manifest>

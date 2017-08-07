@@ -17,7 +17,7 @@
             android:layout_height="100dp"
             android:layout_marginEnd="@dimen/padding_common"
             android:layout_marginRight="@dimen/padding_common"
-            android:contentDescription="@string/app_name"
+            android:transitionName="@string/transition_name"
             tools:background="#fff0f0f0" />
 
         <LinearLayout

@@ -9,6 +9,8 @@ import android.app.Activity;
 import android.databinding.DataBindingUtil;
 
 import com.shui.blacktea.databinding.ActivityHomeBinding;
+import com.shui.blacktea.databinding.ActivityNewsDetialBinding;
+import com.shui.blacktea.databinding.ActivityNewsSelectCateBinding;
 import com.yeeyuntech.framework.inject.module.YYActivityModule;
 import com.yeeyuntech.framework.inject.scope.ActivityScope;
 import com.yeeyuntech.framework.ui.YYActivity;
@@ -26,6 +28,18 @@ public class ActivityModule extends YYActivityModule {
     @Provides
     @ActivityScope
     ActivityHomeBinding provideActivityHomeBinding() {
+        return DataBindingUtil.setContentView(mActivity, ((YYActivity) (mActivity)).getLayoutId());
+    }
+
+    @Provides
+    @ActivityScope
+    ActivityNewsSelectCateBinding provideActivityNewsSelectCateBinding() {
+        return DataBindingUtil.setContentView(mActivity, ((YYActivity) (mActivity)).getLayoutId());
+    }
+
+    @Provides
+    @ActivityScope
+    ActivityNewsDetialBinding provideActivityNewsDetialBinding() {
         return DataBindingUtil.setContentView(mActivity, ((YYActivity) (mActivity)).getLayoutId());
     }
 

@@ -13,6 +13,7 @@ import com.shui.blacktea.config.AppCfg;
 import com.shui.blacktea.inject.component.AppComponent;
 import com.shui.blacktea.inject.component.DaggerAppComponent;
 import com.shui.blacktea.inject.module.AppModule;
+import com.shui.blacktea.utils.CircularAnim;
 import com.yeeyuntech.framework.YYApplication;
 
 /**
@@ -45,6 +46,7 @@ public class App extends YYApplication {
         thread.start();
         mHandlerLooper = thread.getLooper();
         mHandler = new Handler(mHandlerLooper);
+        CircularAnim.init(700, 500, R.color.colorPrimary);
         AppCfg.init(this);
     }
 

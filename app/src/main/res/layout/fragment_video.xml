@@ -52,8 +52,33 @@
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
-                style="@style/AppTheme.Toolbar.Light"
+                style="@style/AppTheme.Toolbar"
                 android:background="@android:color/transparent" />
         </android.support.design.widget.CoordinatorLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="加载中..."
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize_title" />
+        </LinearLayout>
     </FrameLayout>
 </layout>

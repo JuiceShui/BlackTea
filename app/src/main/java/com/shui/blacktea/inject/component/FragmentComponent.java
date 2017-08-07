@@ -12,6 +12,7 @@ import com.shui.blacktea.ui.chat.ChatFragment;
 import com.shui.blacktea.ui.collection.CollectionFragment;
 import com.shui.blacktea.ui.download.DownLoadFragment;
 import com.shui.blacktea.ui.img.ImgFragment;
+import com.shui.blacktea.ui.music.MusicFragment;
 import com.shui.blacktea.ui.news.NewsFragment;
 import com.shui.blacktea.ui.setting.SettingFragment;
 import com.shui.blacktea.ui.user.UserFragment;
@@ -42,4 +43,6 @@ public interface FragmentComponent {
     void Inject(VideoFragment videoFragment);
 
     void Inject(ChatFragment chatFragment);
+
+    void Inject(MusicFragment musicFragment);
 }
