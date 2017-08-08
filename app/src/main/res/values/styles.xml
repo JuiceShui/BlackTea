@@ -94,4 +94,7 @@
         <item name="android:textSize">@dimen/textsize_content</item>
     </style>
 
+    <style name="AppTheme.Divider">
+        <item name="android:background">?android:attr/listDivider</item>
+    </style>
 </resources>

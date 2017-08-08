@@ -6,7 +6,6 @@
 package com.shui.blacktea.ui;
 
 import android.content.Context;
-import android.view.View;
 
 import com.shui.blacktea.App;
 import com.shui.blacktea.inject.component.DaggerFragmentComponent;
@@ -39,11 +38,6 @@ public abstract class BaseFragment extends YYFragment {
     public void onDetach() {
         AppBus.unregister(this);
         super.onDetach();
-    }
-
-    @Override
-    protected View initBinding() {
-        return null;
     }
 
     @Override

@@ -10,7 +10,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 
 
+import com.shui.blacktea.databinding.FragmentLocalMusicBinding;
+import com.shui.blacktea.databinding.FragmentMusicBinding;
 import com.shui.blacktea.databinding.FragmentNewsBinding;
+import com.shui.blacktea.databinding.FragmentOnlineMusicBinding;
 import com.shui.blacktea.databinding.FragmentTestBinding;
 import com.shui.blacktea.databinding.FragmentVideoBinding;
 import com.yeeyuntech.framework.inject.module.YYFragmentModule;
@@ -45,6 +48,25 @@ public class FragmentModule extends YYFragmentModule {
     FragmentVideoBinding provideFragmentVideoBinding() {
         return DataBindingUtil.inflate(LayoutInflater.from(mFragment.getActivity()), ((YYFragment) mFragment).getLayoutId(), null, false);
     }
+
+    @Provides
+    @FragmentScope
+    FragmentMusicBinding provideFragmentMusicBinding() {
+        return DataBindingUtil.inflate(LayoutInflater.from(mFragment.getActivity()), ((YYFragment) mFragment).getLayoutId(), null, false);
+    }
+
+    @Provides
+    @FragmentScope
+    FragmentLocalMusicBinding provideFragmentLocalMusicBinding() {
+        return DataBindingUtil.inflate(LayoutInflater.from(mFragment.getActivity()), ((YYFragment) mFragment).getLayoutId(), null, false);
+    }
+
+    @Provides
+    @FragmentScope
+    FragmentOnlineMusicBinding provideFragmentOnlineMusicBinding() {
+        return DataBindingUtil.inflate(LayoutInflater.from(mFragment.getActivity()), ((YYFragment) mFragment).getLayoutId(), null, false);
+    }
+
 }
 
 

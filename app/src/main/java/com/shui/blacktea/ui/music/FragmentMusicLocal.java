@@ -1,4 +1,4 @@
-package com.shui.blacktea.ui.img;
+package com.shui.blacktea.ui.music;
 
 import android.view.View;
 
@@ -10,10 +10,10 @@ import javax.inject.Inject;
 
 /**
  * Description:
- * Created by Juice_ on 2017/8/1.
+ * Created by Juice_ on 2017/8/8.
  */
 
-public class ImgFragment extends BaseFragment {
+public class FragmentMusicLocal extends BaseFragment {
     @Inject
     FragmentLocalMusicBinding mBinding;
 
@@ -34,5 +34,7 @@ public class ImgFragment extends BaseFragment {
 
     @Override
     public void initViews() {
+        mBinding.rvLocalMusic.setVisibility(View.GONE);
+        mBinding.tvEmpty.setVisibility(View.VISIBLE);
     }
 }

@@ -20,7 +20,7 @@ public class Constants {
     public static final int TYPE_COLLECTION = 5;
     public static final int TYPE_DOWNLOAD = 6;
     public static final int TYPE_USER = 7;
-
+    public static final int TYPE_MUSIC = 8;
     public static final String SP_CURRENT_ITEM = "current_item";
 
 

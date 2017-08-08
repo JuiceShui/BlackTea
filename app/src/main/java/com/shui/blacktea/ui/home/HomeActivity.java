@@ -16,6 +16,7 @@ import com.shui.blacktea.ui.chat.ChatFragment;
 import com.shui.blacktea.ui.collection.CollectionFragment;
 import com.shui.blacktea.ui.download.DownLoadFragment;
 import com.shui.blacktea.ui.img.ImgFragment;
+import com.shui.blacktea.ui.music.MusicFragment;
 import com.shui.blacktea.ui.news.NewsFragment;
 import com.shui.blacktea.ui.setting.SettingFragment;
 import com.shui.blacktea.ui.user.UserFragment;
@@ -40,8 +41,10 @@ public class HomeActivity extends BaseActivity
     private SettingFragment mSettingFragment;
     private CollectionFragment mCollectionFragment;
     private DownLoadFragment mDownLoadFragment;
+    private MusicFragment mMusicFragment;
     private UserFragment mUserFragment;
     private MenuItem mLastMenuItem;
+
     private int mShowFragmentType = Constants.TYPE_NEWS;
     private int mHideFragmentType = Constants.TYPE_NEWS;
 
@@ -79,13 +82,13 @@ public class HomeActivity extends BaseActivity
     @Override
     public void initViews() {
         //mAppbarHomeBinding = DataBindingUtil.inflate(mInflater, R.layout.app_bar_home, null, false);
-       // mContentHomeBinding = DataBindingUtil.inflate(mInflater, R.layout.content_home, null, false);
+        // mContentHomeBinding = DataBindingUtil.inflate(mInflater, R.layout.content_home, null, false);
         //mNavHeaderBinding = DataBindingUtil.inflate(mInflater, R.layout.nav_header_home, null, false);
         // setToolBar(mAppbarHomeBinding.toolbar);
         initFragments();
         mLastMenuItem = mBinding.navView.getMenu().findItem(R.id.nav_news);
         loadMultipleRootFragment(R.id.fl_container, 0, mNewsFragment, mVideoFragment, mImgFragment, mUserFragment,
-                mChatFragment, mSettingFragment, mCollectionFragment, mDownLoadFragment);
+                mChatFragment, mMusicFragment, mSettingFragment, mCollectionFragment, mDownLoadFragment);
         mBinding.navView.setNavigationItemSelectedListener(this);
         mBinding.navView.getMenu().findItem(R.id.nav_news).setChecked(true);
     }
@@ -133,6 +136,9 @@ public class HomeActivity extends BaseActivity
             case R.id.nav_img:
                 mShowFragmentType = Constants.TYPE_IMG;
                 break;
+            case R.id.nav_music:
+                mShowFragmentType = Constants.TYPE_MUSIC;
+                break;
         }
         if (mLastMenuItem != null) {
             mLastMenuItem.setChecked(false);
@@ -155,6 +161,7 @@ public class HomeActivity extends BaseActivity
         mCollectionFragment = new CollectionFragment();
         mDownLoadFragment = new DownLoadFragment();
         mUserFragment = new UserFragment();
+        mMusicFragment = new MusicFragment();
     }
 
     private SupportFragment getCurrentFragment(int current) {
@@ -173,7 +180,18 @@ public class HomeActivity extends BaseActivity
                 return mCollectionFragment;
             case Constants.TYPE_DOWNLOAD:
                 return mDownLoadFragment;
+            case Constants.TYPE_MUSIC:
+                return mMusicFragment;
         }
         return mNewsFragment;
+    }
+
+    public void toggleDrawer() {
+        System.out.println("isOpen" + mBinding.drawerLayout.isDrawerOpen(R.id.drawer_layout));
+        if (!mBinding.drawerLayout.isDrawerOpen(R.id.drawer_layout)) {
+            mBinding.drawerLayout.openDrawer(GravityCompat.START, true);
+        } else {
+            mBinding.drawerLayout.closeDrawer(GravityCompat.START, true);
+        }
     }
 }

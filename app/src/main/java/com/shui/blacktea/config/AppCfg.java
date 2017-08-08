@@ -10,7 +10,6 @@ import android.os.Environment;
 
 import com.shui.blacktea.App;
 import com.shui.blacktea.BuildConfig;
-import com.shui.blacktea.data.AESManager;
 import com.yeeyuntech.framework.utils.LogUtils;
 import com.yeeyuntech.framework.utils.PrefUtils;
 
@@ -47,20 +46,6 @@ public class AppCfg {
         if (mIsRelease) {
             mServer = mReleaseServer;
         }
-        String userInfo = PrefUtils.getString(PrefKey.USER_INFO, "");
-        //UserEntity user = JSON.parseObject(userInfo, UserEntity.class);
-       /* if (user == null) {
-            user = new UserEntity();
-        }
-        app.setUser(user);*/
-        String key = PrefUtils.getString(PrefKey.AES_KEY, "");
-        AESManager.getInstance().setKey(key);
-        // shareSdk
-//        MobSDK.init(app);
-    }
-
-    public static String getServer() {
-        return mServer;
     }
 
     public static File getStorageCache() {
