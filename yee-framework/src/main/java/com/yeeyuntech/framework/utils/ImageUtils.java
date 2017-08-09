@@ -1,4 +1,4 @@
-package com.shui.blacktea.utils;
+package com.yeeyuntech.framework.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

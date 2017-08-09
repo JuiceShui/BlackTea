@@ -16,5 +16,5 @@
     <string name="play_time_start">00:00</string>
     <string name="no_local_music">暂无本地音乐</string>
     <string name="load_fail">加载失败，请检查网络后重试</string>
-
+    <string name="unknown">未知</string>
 </resources>

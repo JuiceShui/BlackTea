@@ -1,6 +1,10 @@
 package com.shui.blacktea.config;
 
+import com.shui.blacktea.entity.MusicEntity;
 import com.shui.blacktea.ui.music.service.PlayService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Description:
@@ -8,27 +12,37 @@ import com.shui.blacktea.ui.music.service.PlayService;
  */
 
 public class AppCache {
-    private static PlayService mService;
-    private AppCache mInstance;
+    private PlayService mService;
+    private static AppCache mInstance;
+    private List<MusicEntity> mMusicList = new ArrayList<>();
 
     private AppCache() {
 
     }
 
-    public static void setPlayService(PlayService playService) {
-        mService = playService;
+    public void setPlayService(PlayService playService) {
+        mInstance.mService = playService;
     }
 
-    public static PlayService getPlayService() {
-        return mService;
+    public PlayService getPlayService() {
+        return mInstance.mService;
     }
 
-    public AppCache getInstance() {
+    public static AppCache getInstance() {
         synchronized (AppCache.class) {
             if (mInstance == null) {
                 mInstance = new AppCache();
             }
             return mInstance;
         }
+    }
+
+    public List<MusicEntity> getMusicList() {
+        return mInstance.mMusicList;
+    }
+
+    public void setMusicList(List<MusicEntity> list) {
+        mInstance.mMusicList = list;
+        System.out.println(mInstance.mMusicList.size());
     }
 }

@@ -8,6 +8,7 @@ import com.shui.blacktea.data.API.YYApi;
 import com.shui.blacktea.data.response.TXResponse;
 import com.shui.blacktea.data.response.YYResponse;
 import com.shui.blacktea.entity.NewsEntity;
+import com.shui.blacktea.entity.SplashImgEntity;
 import com.shui.blacktea.entity.VideoEntity;
 import com.shui.blacktea.entity.WeiBoEntity;
 import com.shui.blacktea.utils.NetWorkUtil;
@@ -173,4 +174,12 @@ public class RetrofitHelper {
         return yyApi.getYYWeiBo(typeId, space, page);
     }
 
+    /**
+     * 获取splash图片
+     *
+     * @return
+     */
+    public Observable<SplashImgEntity> getSplashImg() {
+        return yyApi.getYYSplashImg();
+    }
 }

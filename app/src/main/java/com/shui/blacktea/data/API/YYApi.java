@@ -1,6 +1,7 @@
 package com.shui.blacktea.data.API;
 
 import com.shui.blacktea.data.response.YYResponse;
+import com.shui.blacktea.entity.SplashImgEntity;
 import com.shui.blacktea.entity.VideoEntity;
 import com.shui.blacktea.entity.WeiBoEntity;
 
@@ -34,6 +35,8 @@ public interface YYApi {
     int TYPE_WEIBO_ARMY = 3;//军事
     String TYPE_WEIBO_SPACE_DAY = "day";
     String TYPE_WEIBO_SPACE_WEEK = "week";
+    //splash图片
+    String CATE_SPLASH = "1287-1";
 
     /**
      * 视频
@@ -57,4 +60,11 @@ public interface YYApi {
     @GET(CATE_WEIBO + "?showapi_appid=" + APPID + "&showapi_sign=" + APPSIGN)
     Observable<YYResponse<WeiBoEntity>> getYYWeiBo(@Query("typeId") int typeId, @Query("space") String space, @Query("page") int page);
 
+    /**
+     * 获取splash图片
+     *
+     * @return
+     */
+    @GET(CATE_SPLASH + "?showapi_appid=" + APPID + "&showapi_sign=" + APPSIGN)
+    Observable<SplashImgEntity> getYYSplashImg();
 }

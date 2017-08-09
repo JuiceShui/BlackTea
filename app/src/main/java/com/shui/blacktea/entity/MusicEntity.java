@@ -108,4 +108,20 @@ public class MusicEntity {
     public void setFileSize(long fileSize) {
         this.fileSize = fileSize;
     }
+
+    @Override
+    public String toString() {
+        return "MusicEntity{" +
+                "type=" + type +
+                ", id=" + id +
+                ", title='" + title + '\'' +
+                ", artist='" + artist + '\'' +
+                ", album='" + album + '\'' +
+                ", duration=" + duration +
+                ", path='" + path + '\'' +
+                ", coverPath='" + coverPath + '\'' +
+                ", fileName='" + fileName + '\'' +
+                ", fileSize=" + fileSize +
+                '}';
+    }
 }

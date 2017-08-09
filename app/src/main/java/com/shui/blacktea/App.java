@@ -34,7 +34,6 @@ public class App extends YYApplication {
     // handler
     private static Handler mHandler;
     private Looper mHandlerLooper;
-
     // component
     public static AppComponent mAppComponent;
 

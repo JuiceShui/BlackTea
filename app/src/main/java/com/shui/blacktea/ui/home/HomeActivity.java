@@ -1,39 +1,44 @@
 package com.shui.blacktea.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
 
 import com.shui.blacktea.R;
+import com.shui.blacktea.config.AppCache;
 import com.shui.blacktea.config.Constants;
 import com.shui.blacktea.databinding.ActivityHomeBinding;
+import com.shui.blacktea.entity.MusicEntity;
 import com.shui.blacktea.ui.BaseActivity;
 import com.shui.blacktea.ui.chat.ChatFragment;
 import com.shui.blacktea.ui.collection.CollectionFragment;
 import com.shui.blacktea.ui.download.DownLoadFragment;
 import com.shui.blacktea.ui.img.ImgFragment;
 import com.shui.blacktea.ui.music.MusicFragment;
+import com.shui.blacktea.ui.music.constants.Extras;
 import com.shui.blacktea.ui.news.NewsFragment;
 import com.shui.blacktea.ui.setting.SettingFragment;
 import com.shui.blacktea.ui.user.UserFragment;
 import com.shui.blacktea.ui.video.VideoFragment;
+import com.shui.blacktea.utils.MusicLoaderUtils;
 import com.shui.blacktea.utils.SharedPreferenceUtils;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
 public class HomeActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, Extras {
     @Inject
     ActivityHomeBinding mBinding;
-    //private AppBarHomeBinding mAppbarHomeBinding;
-    //private NavHeaderHomeBinding mNavHeaderBinding;
-    //private ContentHomeBinding mContentHomeBinding;
     private NewsFragment mNewsFragment;
     private VideoFragment mVideoFragment;
     private ImgFragment mImgFragment;
@@ -44,7 +49,6 @@ public class HomeActivity extends BaseActivity
     private MusicFragment mMusicFragment;
     private UserFragment mUserFragment;
     private MenuItem mLastMenuItem;
-
     private int mShowFragmentType = Constants.TYPE_NEWS;
     private int mHideFragmentType = Constants.TYPE_NEWS;
 
@@ -59,9 +63,11 @@ public class HomeActivity extends BaseActivity
             mHideFragmentType = Constants.TYPE_NEWS;
             showHideFragment(getCurrentFragment(mShowFragmentType), getCurrentFragment(mHideFragmentType));
             mBinding.navView.getMenu().findItem(R.id.nav_news).setChecked(false);
-            //toolbar.setTitle(navView.getMenu().findItem(getCurrentItem(showFragment)).getTitle().toString());
             mHideFragmentType = mShowFragmentType;
         }
+        List<MusicEntity> list = MusicLoaderUtils.scanMusic(this);
+        AppCache.getInstance().setMusicList(list);
+        parseIntent();
     }
 
     @Override
@@ -81,10 +87,6 @@ public class HomeActivity extends BaseActivity
 
     @Override
     public void initViews() {
-        //mAppbarHomeBinding = DataBindingUtil.inflate(mInflater, R.layout.app_bar_home, null, false);
-        // mContentHomeBinding = DataBindingUtil.inflate(mInflater, R.layout.content_home, null, false);
-        //mNavHeaderBinding = DataBindingUtil.inflate(mInflater, R.layout.nav_header_home, null, false);
-        // setToolBar(mAppbarHomeBinding.toolbar);
         initFragments();
         mLastMenuItem = mBinding.navView.getMenu().findItem(R.id.nav_news);
         loadMultipleRootFragment(R.id.fl_container, 0, mNewsFragment, mVideoFragment, mImgFragment, mUserFragment,
@@ -152,6 +154,23 @@ public class HomeActivity extends BaseActivity
         return true;
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        setIntent(intent);
+        parseIntent();
+    }
+
+    private void parseIntent() {
+        Intent intent = getIntent();
+        if (intent.hasExtra(EXTRA_NOTIFICATION)) {
+            //showPlayingFragment();
+            showHideFragment(mMusicFragment);
+            mShowFragmentType = Constants.TYPE_MUSIC;
+            mHideFragmentType = Constants.TYPE_MUSIC;
+            setIntent(new Intent());
+        }
+    }
+
     private void initFragments() {
         mNewsFragment = new NewsFragment();
         mVideoFragment = new VideoFragment();
@@ -186,8 +205,11 @@ public class HomeActivity extends BaseActivity
         return mNewsFragment;
     }
 
+    public boolean isDrawerOpen() {
+        return mBinding.drawerLayout.isDrawerOpen(Gravity.START);
+    }
+
     public void toggleDrawer() {
-        System.out.println("isOpen" + mBinding.drawerLayout.isDrawerOpen(R.id.drawer_layout));
         if (!mBinding.drawerLayout.isDrawerOpen(R.id.drawer_layout)) {
             mBinding.drawerLayout.openDrawer(GravityCompat.START, true);
         } else {

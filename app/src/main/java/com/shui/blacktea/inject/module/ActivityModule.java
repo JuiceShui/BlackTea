@@ -11,6 +11,7 @@ import android.databinding.DataBindingUtil;
 import com.shui.blacktea.databinding.ActivityHomeBinding;
 import com.shui.blacktea.databinding.ActivityNewsDetialBinding;
 import com.shui.blacktea.databinding.ActivityNewsSelectCateBinding;
+import com.shui.blacktea.databinding.ActivitySplashBinding;
 import com.yeeyuntech.framework.inject.module.YYActivityModule;
 import com.yeeyuntech.framework.inject.scope.ActivityScope;
 import com.yeeyuntech.framework.ui.YYActivity;
@@ -43,4 +44,9 @@ public class ActivityModule extends YYActivityModule {
         return DataBindingUtil.setContentView(mActivity, ((YYActivity) (mActivity)).getLayoutId());
     }
 
+    @Provides
+    @ActivityScope
+    ActivitySplashBinding provideActivitySplashBinding() {
+        return DataBindingUtil.setContentView(mActivity, ((YYActivity) (mActivity)).getLayoutId());
+    }
 }

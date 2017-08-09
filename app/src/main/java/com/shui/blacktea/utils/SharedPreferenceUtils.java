@@ -15,6 +15,8 @@ public class SharedPreferenceUtils {
     private static final String SP_NAME = "mysp";
     private static final String MUSIC_ID = "music_id";
     private static final String PLAY_MODE = "play_mode";
+    private static final String FILTER_SIZE = "filter_size";
+    private static final String FILTER_TIME = "filter_time";
     private static final int DEFAULT_ITEM = Constants.TYPE_NEWS;//默认
 
     public static SharedPreferences getAppSp() {
@@ -43,5 +45,21 @@ public class SharedPreferenceUtils {
 
     public static void setPlayMode(int mode) {
         getAppSp().edit().putInt(PLAY_MODE, mode).apply();
+    }
+
+    public static long getFilterSize() {
+        return getAppSp().getInt(FILTER_SIZE, 1);
+    }
+
+    public static void setFilterSize(long size) {
+        getAppSp().edit().putLong(FILTER_SIZE, size).apply();
+    }
+
+    public static long getFilterTime() {
+        return getAppSp().getInt(FILTER_TIME, 1);
+    }
+
+    public static void setFilterTime(long time) {
+        getAppSp().edit().putLong(FILTER_TIME, time).apply();
     }
 }

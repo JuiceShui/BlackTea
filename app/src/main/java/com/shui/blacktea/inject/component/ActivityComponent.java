@@ -9,6 +9,7 @@ import android.app.Activity;
 
 import com.shui.blacktea.inject.module.ActivityModule;
 import com.shui.blacktea.ui.home.HomeActivity;
+import com.shui.blacktea.ui.home.SplashActivity;
 import com.shui.blacktea.ui.news.NewsCateSelectActivity;
 import com.shui.blacktea.ui.news.NewsDetailActivity;
 import com.yeeyuntech.framework.inject.scope.ActivityScope;
@@ -26,4 +27,6 @@ public interface ActivityComponent {
     void Inject(NewsCateSelectActivity newsCateSelectActivity);
 
     void Inject(NewsDetailActivity newsDetailActivity);
+
+    void Inject(SplashActivity splashActivity);
 }

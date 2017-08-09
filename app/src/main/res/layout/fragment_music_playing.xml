@@ -3,6 +3,9 @@
 
     <data>
 
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <FrameLayout
@@ -22,11 +25,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/black_50p"
+            android:fitsSystemWindows="true"
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/ll_header"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:fitsSystemWindows="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -35,6 +41,7 @@
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="?attr/actionBarSize"
                     android:background="@drawable/btn_action_bg_selector"
+                    android:onClick="@{click.onClick}"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_arrow_down" />
 
@@ -128,6 +135,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:onClick="@{click.onClick}"
                         android:src="@drawable/play_mode_level_list" />
 
                     <ImageView
@@ -136,6 +144,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/iv_play"
+                        android:onClick="@{click.onClick}"
                         android:src="@drawable/play_btn_prev_selector" />
 
                     <ImageView
@@ -143,6 +152,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
+                        android:onClick="@{click.onClick}"
                         android:src="@drawable/play_btn_play_pause_selector" />
 
                     <ImageView
@@ -151,6 +161,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@id/iv_play"
+                        android:onClick="@{click.onClick}"
                         android:src="@drawable/play_btn_next_selector" />
                 </RelativeLayout>
             </LinearLayout>
