@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.shui.blacktea.R;
 import com.shui.blacktea.common.FragmentAdapter;
 import com.shui.blacktea.config.AppCache;
@@ -40,6 +41,9 @@ public class MusicFragment extends BaseFragment implements View.OnClickListener,
     private boolean mIsPlayFragmentShowing = false;
     private AudioManager mAudioManager;
     private ComponentName mRemoteReceiver;
+    private FragmentMusicLocal mLocalMusicFragment;
+    private FragmentMusicOnline mOnlineMusicFragment;
+
 
     @Override
     public int getLayoutId() {
@@ -66,8 +70,10 @@ public class MusicFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void initViews() {
-        mFragmentList.add(new FragmentMusicLocal());
-        mFragmentList.add(new FragmentMusicOnline());
+        mLocalMusicFragment = new FragmentMusicLocal();
+        mOnlineMusicFragment = new FragmentMusicOnline();
+        mFragmentList.add(mLocalMusicFragment);
+        mFragmentList.add(mOnlineMusicFragment);
         mFragmentAdapter = new FragmentAdapter(getChildFragmentManager(), mFragmentList);
         mBinding.tvLocalMusic.setSelected(true);
         mBinding.viewpager.setAdapter(mFragmentAdapter);
@@ -145,6 +151,7 @@ public class MusicFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void onChange(MusicEntity musicEntity) {
+        onPlay(musicEntity);
         if (mFragmentPlaying != null) {
             mFragmentPlaying.onChange(musicEntity);
         }
@@ -159,8 +166,8 @@ public class MusicFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void onMusicListUpdate() {
-        if (mFragmentPlaying != null) {
-            mFragmentPlaying.onMusicListUpdate();
+        if (mLocalMusicFragment != null) {
+            mLocalMusicFragment.onMusicListUpdate();
         }
     }
 
@@ -181,8 +188,11 @@ public class MusicFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
+        //checkPlayService();
+        getPlayService().setPlayListener(this);
         parseIntent();
     }
+
 
     private void play() {
         getPlayService().playPause();
@@ -245,11 +255,6 @@ public class MusicFragment extends BaseFragment implements View.OnClickListener,
         mIsPlayFragmentShowing = false;
     }
 
-    //获取PlayService
-    private PlayService getPlayService() {
-        return AppCache.getInstance().getPlayService();
-    }
-
     //处理intent
     private void parseIntent() {
         Intent intent = mActivity.getIntent();
@@ -257,5 +262,36 @@ public class MusicFragment extends BaseFragment implements View.OnClickListener,
             showPlayingFragment();
             mActivity.setIntent(new Intent());
         }
+    }
+
+    private void onPlay(MusicEntity musicEntity) {
+        if (musicEntity == null) {
+            return;
+        }
+        Glide.with(mActivity).load(musicEntity.getCoverPath()).placeholder(R.drawable.default_cover).into(mBinding.ivPlayBarCover);
+        mBinding.tvPlayBarTitle.setText(musicEntity.getTitle());
+        mBinding.tvPlayBarArtist.setText(musicEntity.getArtist());
+        if (getPlayService().isPlaying() || getPlayService().isPreparing()) {
+            mBinding.ivPlayBarPlay.setSelected(true);
+        } else {
+            mBinding.ivPlayBarPlay.setSelected(false);
+        }
+        mBinding.pbPlayBar.setMax((int) musicEntity.getDuration());
+        mBinding.pbPlayBar.setProgress(0);
+        if (mLocalMusicFragment != null) {
+            mLocalMusicFragment.onItemPlay();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mRemoteReceiver != null) {
+            mAudioManager.unregisterMediaButtonEventReceiver(mRemoteReceiver);
+        }
+        PlayService service = AppCache.getInstance().getPlayService();
+        if (service != null) {
+            service.setPlayListener(null);
+        }
+        super.onDestroy();
     }
 }

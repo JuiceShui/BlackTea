@@ -1,4 +1,5 @@
 <resources>
+    <string name="no_permission">没有%1$s权限，无法%2$s！</string>
     <string name="app_name">BlackTea</string>
     <string name="title_activity_home">HomeActivity</string>
 

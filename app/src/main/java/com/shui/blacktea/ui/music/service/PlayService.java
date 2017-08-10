@@ -10,15 +10,16 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import com.shui.blacktea.config.AppCache;
 import com.shui.blacktea.entity.MusicEntity;
 import com.shui.blacktea.ui.music.Notifier;
 import com.shui.blacktea.ui.music.broadcast.ComingCallOrEarPhoneDropReceiver;
 import com.shui.blacktea.ui.music.constants.Actions;
 import com.shui.blacktea.ui.music.constants.PlayMode;
 import com.shui.blacktea.utils.SharedPreferenceUtils;
+import com.yeeyuntech.framework.utils.RxUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -43,15 +44,17 @@ public class PlayService extends Service implements Actions, PlayServiceMethod, 
     private MediaPlayer mPlayer;
     private AudioManager mAudioManager;
     private MusicEntity mPlayingMusic;//当前播放的音乐
-    private int mPlayingPosition;//当前播放的本地音乐标号
+    private int mPlayingPosition = 1;//当前播放的本地音乐标号
     private int mPlayingState = STATE_IDLE;//当前状态
     private final IntentFilter mComingCallOrEarPhoneDropFilter = new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
     private ComingCallOrEarPhoneDropReceiver mComingCallOrEarPhoneDropReceiver = new ComingCallOrEarPhoneDropReceiver();
-    private List<MusicEntity> mMusicList = new ArrayList<>();//音乐列表
+    private List<MusicEntity> mMusicList = AppCache.getInstance().getMusicList();//音乐列表
+    private Disposable mTimer;//计时器
 
     @Override
     public void onCreate() {
         super.onCreate();
+        System.out.println("ServiceOncreate");
         mPlayer = new MediaPlayer();
         mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         mPlayer.setOnCompletionListener(this);
@@ -120,10 +123,13 @@ public class PlayService extends Service implements Actions, PlayServiceMethod, 
      */
     @Override
     public void play(int position) {
-        if (mMusicList == null) {
+        if (mMusicList == null && AppCache.getInstance().getMusicList() == null) {
             return;
         }
-        if (position <= 0) {
+        if (mMusicList == null || mMusicList.size() == 0) {
+            mMusicList = AppCache.getInstance().getMusicList();
+        }
+        if (position < 0) {
             position = mMusicList.size() - 1;
         } else if (position >= mMusicList.size()) {
             position = 0;
@@ -159,8 +165,11 @@ public class PlayService extends Service implements Actions, PlayServiceMethod, 
 
     @Override
     public void next() {
-        if (mMusicList == null) {
+        if (mMusicList == null && AppCache.getInstance().getMusicList() == null) {
             return;
+        }
+        if (mMusicList == null || mMusicList.size() == 0) {
+            mMusicList = AppCache.getInstance().getMusicList();
         }
         int PlayMode = SharedPreferenceUtils.getPlayMode();
         switch (PlayMode) {
@@ -321,7 +330,7 @@ public class PlayService extends Service implements Actions, PlayServiceMethod, 
         }
         if (start()) {
             if (mPlayListener != null) {
-                mPlayListener.onPlayerPause();
+                mPlayListener.onPlayerResume();
             }
         }
     }
@@ -331,8 +340,17 @@ public class PlayService extends Service implements Actions, PlayServiceMethod, 
      *
      * @return
      */
-    private int getPlayingPosition() {
+    public int getPlayingPosition() {
         return mPlayingPosition;
+    }
+
+    /**
+     * 获取当前播放的音乐
+     *
+     * @return
+     */
+    public MusicEntity getPlayingMusic() {
+        return mPlayingMusic;
     }
 
     public boolean isPlaying() {
@@ -352,9 +370,9 @@ public class PlayService extends Service implements Actions, PlayServiceMethod, 
     }
 
     private void doInterval(boolean isCancel) {
-        Disposable disposable = null;
         if (!isCancel) {
-            disposable = Observable.interval(TIME_UPDATE, TimeUnit.MILLISECONDS)
+            mTimer = Observable.interval(TIME_UPDATE, TimeUnit.MILLISECONDS)
+                    .compose(RxUtils.<Long>applySchedulers())
                     .subscribe(new Consumer<Long>() {
                         @Override
                         public void accept(@NonNull Long aLong) throws Exception {
@@ -364,7 +382,7 @@ public class PlayService extends Service implements Actions, PlayServiceMethod, 
                         }
                     });
         } else {
-            disposable.dispose();
+            mTimer.dispose();
         }
     }
 }

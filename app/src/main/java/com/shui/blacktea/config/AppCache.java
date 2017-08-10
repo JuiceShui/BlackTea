@@ -43,6 +43,5 @@ public class AppCache {
 
     public void setMusicList(List<MusicEntity> list) {
         mInstance.mMusicList = list;
-        System.out.println(mInstance.mMusicList.size());
     }
 }

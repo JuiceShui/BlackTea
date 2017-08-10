@@ -1,7 +1,11 @@
 package com.shui.blacktea.ui.home;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +26,7 @@ import com.shui.blacktea.ui.download.DownLoadFragment;
 import com.shui.blacktea.ui.img.ImgFragment;
 import com.shui.blacktea.ui.music.MusicFragment;
 import com.shui.blacktea.ui.music.constants.Extras;
+import com.shui.blacktea.ui.music.service.PlayService;
 import com.shui.blacktea.ui.news.NewsFragment;
 import com.shui.blacktea.ui.setting.SettingFragment;
 import com.shui.blacktea.ui.user.UserFragment;
@@ -51,6 +56,7 @@ public class HomeActivity extends BaseActivity
     private MenuItem mLastMenuItem;
     private int mShowFragmentType = Constants.TYPE_NEWS;
     private int mHideFragmentType = Constants.TYPE_NEWS;
+    private ServiceConnection mServiceConnection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +71,9 @@ public class HomeActivity extends BaseActivity
             mBinding.navView.getMenu().findItem(R.id.nav_news).setChecked(false);
             mHideFragmentType = mShowFragmentType;
         }
-        List<MusicEntity> list = MusicLoaderUtils.scanMusic(this);
-        AppCache.getInstance().setMusicList(list);
+        /*List<MusicEntity> list = MusicLoaderUtils.scanMusic(this);
+        AppCache.getInstance().setMusicList(list);*/
+        checkPlayService();
         parseIntent();
     }
 
@@ -214,6 +221,73 @@ public class HomeActivity extends BaseActivity
             mBinding.drawerLayout.openDrawer(GravityCompat.START, true);
         } else {
             mBinding.drawerLayout.closeDrawer(GravityCompat.START, true);
+        }
+    }
+
+    private void checkPlayService() {
+        if (AppCache.getInstance().getPlayService() == null) {
+            startService();
+            /*Observable.timer(1000, TimeUnit.MILLISECONDS)
+                    .subscribe(new Consumer<Long>() {
+                        @Override
+                        public void accept(@io.reactivex.annotations.NonNull Long aLong) throws Exception {
+                            bindService();
+                        }
+                    });*/
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    bindService();
+                }
+            }, 1000);
+        }
+    }
+
+    private void bindService() {
+        Intent intent = new Intent();
+        intent.setClass(this, PlayService.class);
+        mServiceConnection = new PlayServiceConnection();
+        bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    private void startService() {
+        Intent intent = new Intent(this, PlayService.class);
+        startService(intent);
+    }
+
+    private class PlayServiceConnection implements ServiceConnection {
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            final PlayService playService = ((PlayService.PlayBinder) service).getService();
+            AppCache.getInstance().setPlayService(playService);
+            //PermissionReq.with(HomeActivity.this).permissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE).result(new PermissionResult() {
+               // @Override
+               // public void onGranted() {
+                    List<MusicEntity> list = MusicLoaderUtils.scanMusic(mActivity);
+                    AppCache.getInstance().setMusicList(list);
+               }
+
+               // @Override
+               // public void onDenied() {
+                  //  ToastUtils.showToast(getString(R.string.no_permission, "读取储存", "扫描本地音乐"));
+                 //   playService.quit();
+                //}
+            //});
+
+        //}
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mServiceConnection != null) {
+            mActivity.unbindService(mServiceConnection);
         }
     }
 }

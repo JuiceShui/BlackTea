@@ -42,6 +42,19 @@
         <activity android:name=".ui.news.NewsCateSelectActivity" />
         <activity android:name=".ui.news.NewsDetailActivity" />
 
+        <service android:name=".ui.music.service.PlayService" />
+
+        <receiver android:name=".ui.music.service.EarPhoneControlReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".ui.music.broadcast.ComingCallOrEarPhoneDropReceiver" />
+        <receiver android:name=".ui.music.broadcast.StatusBarReceiver">
+            <intent-filter>
+                <action android:name="com.shui.blacktea.STATUS_BAR_ACTIONS" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

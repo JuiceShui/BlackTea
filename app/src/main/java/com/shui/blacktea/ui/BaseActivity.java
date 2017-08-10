@@ -6,6 +6,8 @@
 package com.shui.blacktea.ui;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +29,7 @@ import java.util.List;
  * Created by lsy on 2017/7/7 下午3:39.
  */
 public abstract class BaseActivity extends YYActivity {
-
+    protected Handler mHandler = new Handler(Looper.getMainLooper());
     protected final String TAG = getClass().getSimpleName();
 
     // BaseApplication实例

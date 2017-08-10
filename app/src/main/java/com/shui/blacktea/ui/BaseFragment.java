@@ -8,9 +8,11 @@ package com.shui.blacktea.ui;
 import android.content.Context;
 
 import com.shui.blacktea.App;
+import com.shui.blacktea.config.AppCache;
 import com.shui.blacktea.inject.component.DaggerFragmentComponent;
 import com.shui.blacktea.inject.component.FragmentComponent;
 import com.shui.blacktea.inject.module.FragmentModule;
+import com.shui.blacktea.ui.music.service.PlayService;
 import com.yeeyuntech.framework.ui.IYYPresenter;
 import com.yeeyuntech.framework.ui.YYFragment;
 import com.yeeyuntech.framework.utils.bus.AppBus;
@@ -61,6 +63,14 @@ public abstract class BaseFragment extends YYFragment {
                 .appComponent(App.getAppComponent())
                 .fragmentModule(new FragmentModule(this))
                 .build();
+    }
+
+    protected PlayService getPlayService() {
+        PlayService playService = AppCache.getInstance().getPlayService();
+        if (playService == null) {
+            throw new NullPointerException("play service is null");
+        }
+        return playService;
     }
 
 }

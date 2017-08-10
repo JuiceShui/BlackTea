@@ -3,10 +3,17 @@ package com.shui.blacktea.data;
 import com.shui.blacktea.App;
 import com.shui.blacktea.BuildConfig;
 import com.shui.blacktea.config.Constants;
+import com.shui.blacktea.data.API.BaiduMusicApi;
 import com.shui.blacktea.data.API.TXApi;
 import com.shui.blacktea.data.API.YYApi;
 import com.shui.blacktea.data.response.TXResponse;
 import com.shui.blacktea.data.response.YYResponse;
+import com.shui.blacktea.entity.BaiduSong.BaiduSongArtistSongsListEntity;
+import com.shui.blacktea.entity.BaiduSong.BaiduSongArtisteEntity;
+import com.shui.blacktea.entity.BaiduSong.BaiduSongBillboardListEntity;
+import com.shui.blacktea.entity.BaiduSong.BaiduSongLrcEntity;
+import com.shui.blacktea.entity.BaiduSong.BaiduSongPlayEntity;
+import com.shui.blacktea.entity.BaiduSong.BaiduSongSearchEntity;
 import com.shui.blacktea.entity.NewsEntity;
 import com.shui.blacktea.entity.SplashImgEntity;
 import com.shui.blacktea.entity.VideoEntity;
@@ -41,13 +48,14 @@ public class RetrofitHelper {
     private static OkHttpClient okHttpClient = null;
     private static TXApi txApi = null;
     private static YYApi yyApi = null;
+    private static BaiduMusicApi bdApi = null;
 
     private void init() {
         initOkHttp();
         txApi = getTxApi();
         yyApi = getYYApi();
+        bdApi = getBDApi();
     }
-
 
     @Inject
     public RetrofitHelper() {
@@ -143,13 +151,28 @@ public class RetrofitHelper {
         return yyRetrofit.create(YYApi.class);
     }
 
+    /**
+     * 百度音乐
+     *
+     * @return
+     */
+    private BaiduMusicApi getBDApi() {
+        Retrofit baiduRetrofit = new Retrofit.Builder()
+                .baseUrl(BaiduMusicApi.HOST)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+        return baiduRetrofit.create(BaiduMusicApi.class);
+    }
+
     /******TXNEWS******/
 
 
     public Observable<TXResponse<List<NewsEntity>>> getTXNews(String cate, int num, int page) {
         return txApi.getTXNews(cate, TXApi.KEY, num, page);
     }
-
+    /********YY API************/
     /**
      * 获取视频
      *
@@ -181,5 +204,69 @@ public class RetrofitHelper {
      */
     public Observable<SplashImgEntity> getSplashImg() {
         return yyApi.getYYSplashImg();
+    }
+
+
+    /********baidu APi***********/
+    /**
+     * 获取榜单列表
+     *
+     * @param type
+     * @return
+     */
+    public Observable<BaiduSongBillboardListEntity> getBillboard(int type, int size, int offset) {
+        return bdApi.getSongList(BaiduMusicApi.METHOD_LIST, type, size, offset);
+    }
+
+    /**
+     * 搜索音乐
+     *
+     * @param keyWord
+     * @return
+     */
+    public Observable<BaiduSongSearchEntity> searchMusic(String keyWord) {
+        return bdApi.searchSong(BaiduMusicApi.METHOD_SEARCH, keyWord);
+    }
+
+    /**
+     * 根据id播放音乐
+     *
+     * @param songId
+     * @return
+     */
+    public Observable<BaiduSongPlayEntity> playSong(String songId) {
+        return bdApi.playSong(BaiduMusicApi.METHOD_PLAY, songId);
+    }
+
+    /**
+     * 根据音乐id 获取歌词
+     *
+     * @param songId
+     * @return
+     */
+    public Observable<BaiduSongLrcEntity> getSongLrc(String songId) {
+        return bdApi.getSongLrc(BaiduMusicApi.METHOD_LRC, songId);
+    }
+
+    /**
+     * 根据歌手id 获取歌手信息
+     *
+     * @param tingUid
+     * @return
+     */
+    public Observable<BaiduSongArtisteEntity> getArtistInfo(String tingUid) {
+        return bdApi.getArtist(BaiduMusicApi.METHOD_ARTIST, tingUid);
+    }
+
+    /**
+     * 根据歌手id获取 歌手的作品列表
+     *
+     * @param tingUid
+     * @param limits
+     * @return
+     */
+    public Observable<BaiduSongArtistSongsListEntity> getArtistSongs(String tingUid, int limits) {
+        return bdApi.getArtistSongs(BaiduMusicApi.METHOD_ARTIST_SONGS,
+                tingUid, limits, BaiduMusicApi.use_cluster, BaiduMusicApi.order);
     }
 }
