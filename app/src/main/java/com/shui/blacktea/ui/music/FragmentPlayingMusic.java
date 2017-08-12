@@ -1,13 +1,18 @@
 package com.shui.blacktea.ui.music;
 
+import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.shui.blacktea.R;
 import com.shui.blacktea.databinding.FragmentMusicPlayingBinding;
 import com.shui.blacktea.entity.MusicEntity;
 import com.shui.blacktea.ui.BaseFragment;
 import com.shui.blacktea.ui.music.service.OnPlayEventListener;
+import com.shui.blacktea.utils.ImageUtils;
 import com.shui.blacktea.utils.SystemUtils;
 import com.yeeyuntech.framework.utils.DisplayUtils;
 
@@ -100,6 +105,14 @@ public class FragmentPlayingMusic extends BaseFragment implements OnPlayEventLis
         mLastProgress = 0;
         mBinding.tvCurrentTime.setText(R.string.play_time_start);
         mBinding.tvTotalTime.setText(formatTime(musicEntity.getDuration()));
+        if (musicEntity.getCoverPath() != null && !musicEntity.getCoverPath().equals("")) {
+            Glide.with(mActivity).load(musicEntity.getCoverPath()).asBitmap().into(new SimpleTarget<Bitmap>() {
+                @Override
+                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    mBinding.ivPlayPageBg.setImageBitmap(ImageUtils.blur(resource));
+                }
+            });
+        }
         //TODO  设置背景  歌词
         if (getPlayService().isPlaying() || getPlayService().isPreparing()) {
             mBinding.ivPlay.setSelected(true);

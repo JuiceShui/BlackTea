@@ -1,13 +1,18 @@
 package com.shui.blacktea.entity.BaiduSong;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 /**
  * Description:  歌曲集合单
  * Created by Juice_ on 2017/8/10.
  */
 
-public class SongListEntity {
+public class SongBillboardEntity implements MultiItemEntity {
+    public static final int TYPE_TITLE = 1;
+    public static final int TYPE_BILLBOARD = 2;
     private int type;
     private String cover;
+    private int cate;
     private String topOne;
     private String topTwo;
     private String topThree;
@@ -18,6 +23,14 @@ public class SongListEntity {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getCate() {
+        return cate;
+    }
+
+    public void setCate(int cate) {
+        this.cate = cate;
     }
 
     public String getCover() {
@@ -50,5 +63,10 @@ public class SongListEntity {
 
     public void setTopThree(String topThree) {
         this.topThree = topThree;
+    }
+
+    @Override
+    public int getItemType() {
+        return type;
     }
 }

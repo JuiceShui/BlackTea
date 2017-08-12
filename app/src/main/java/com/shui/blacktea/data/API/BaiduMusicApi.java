@@ -25,11 +25,12 @@ public interface BaiduMusicApi {
     String METHOD_LRC = "baidu.ting.song.lry";
     String METHOD_ARTIST = "baidu.ting.artist.getInfo";
     String METHOD_ARTIST_SONGS = "baidu.ting.artist.getSongList";
+    String METHOD_DOWN = "baidu.ting.song.downWeb";
     String use_cluster = "use_cluster";
     int DEFAULT_LIST_SIZE = 3;
     int DEFAULT_OFFSET = 0;
 
-    int DEFAULT_LIST_SIZE_10 = 10;
+    int DEFAULT_LIST_SIZE_15 = 15;
     int TYPE_NEW = 1;//新歌
     int TYPE_HOT = 2;//热歌
     int TYPE_ROCK = 11;//摇滚榜单
@@ -44,6 +45,13 @@ public interface BaiduMusicApi {
     int TYPE_CHINESE = 18;//中文榜单
     int TYPE_KTV = 6;//KTV榜单
     int order = 2;
+    String BIT_24 = "24";
+    String BIT_64 = "64";
+    String BIT_128 = "128";
+    String BIT_192 = "192";
+    String BIT_256 = "256";
+    String BIT_320 = "320";
+    String BIT_FLAC = "flac";
 
     /**
      * 获取列表
@@ -112,4 +120,16 @@ public interface BaiduMusicApi {
     @GET(SUB_HOST)
     Observable<BaiduSongArtistSongsListEntity> getArtistSongs(@Query("method") String method, @Query("tinguid") String tinguid,
                                                               @Query("limits") int limits, @Query("use_cluster") String use_cluster, @Query("order") int order);
+
+    /**
+     * 下载音乐
+     *
+     * @param method
+     * @param songid
+     * @param bit
+     * @param timestamp
+     * @return
+     */
+    /*@GET()
+    Observable<ResponseBody> downloadSong(@Query("method") String method, @Query("songid") String songid, @Query("bit") String bit, @Query("_t") String timestamp);*/
 }

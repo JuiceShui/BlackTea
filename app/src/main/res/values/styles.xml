@@ -102,4 +102,60 @@
     <style name="AppTheme.Divider">
         <item name="android:background">?android:attr/listDivider</item>
     </style>
+
+    <style name="MusicInfoLLStyle">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/music_info_item_height</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="MusicInfoTextViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/music_info_text_size</item>
+    </style>
+
+    <style name="MusicInfoIconStyle">
+        <item name="android:layout_width">@dimen/music_info_icon_size</item>
+        <item name="android:layout_height">@dimen/music_info_icon_size</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginRight">@dimen/music_info_item_icon_padding_right</item>
+    </style>
+
+    <style name="MusicInfoDividerStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/music_info_divider_height</item>
+        <item name="android:layout_marginBottom">@dimen/dp_10</item>
+        <item name="android:background">@color/white_5</item>
+        <item name="android:layout_marginLeft">30dp</item>
+    </style>
+
+    <style name="BottomDialog" parent="@android:style/Theme.Dialog">
+        <!--<style name="BottomDialog" parent="Theme.AppCompat.Light.Dialog">-->
+        <!-- 是否有边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!--是否在悬浮Activity之上  -->
+        <item name="android:windowIsFloating">true</item>
+        <!--标题  -->
+        <item name="android:windowNoTitle">true</item>
+        <!--阴影  -->
+        <item name="android:windowIsTranslucent">true</item><!--半透明-->
+        <!-- 进入和退出的动画 -->
+        <item name="android:windowAnimationStyle">@style/popwin_anim</item>
+
+        <!-- 点外边可以消失  -->
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <!-- 去除dialog背景, 防止没有遮住的部分背景-->
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
+
+    <style name="popwin_anim">
+        <item name="android:windowEnterAnimation">@anim/popwin_button_in</item>
+        <item name="android:windowExitAnimation">@anim/popwin_button_out</item>
+    </style>
+
 </resources>

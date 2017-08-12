@@ -26,7 +26,7 @@ public class Constants {
 
     public static final String PATH_DATA = App.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";
     public static final String PATH_CACHE = PATH_DATA + "/netCache";
-    public static final String PATH_EXTERNAL_CARD = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Shui" + File.separator + "dexter";
+    public static final String PATH_EXTERNAL_CARD = Environment.getExternalStorageDirectory() + File.separator + "Shui" + File.separator + "blackTea";
 
 
     public static final String TRANSITION_NAME = "ShareView";

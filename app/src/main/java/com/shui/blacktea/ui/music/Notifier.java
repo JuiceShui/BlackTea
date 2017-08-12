@@ -132,9 +132,9 @@ public class Notifier implements Extras {
      */
     private static int getPlayIconRes(boolean isPlaying) {
         if (isPlaying) {
-            return R.drawable.ic_status_bar_pause_dark_selector;
+            return R.drawable.ic_status_bar_pause_light_selector;
         } else {
-            return R.drawable.ic_status_bar_play_dark_selector;
+            return R.drawable.ic_status_bar_play_light_selector;
         }
     }
 
@@ -144,6 +144,6 @@ public class Notifier implements Extras {
      * @return
      */
     private static int getNextIconRes() {
-        return R.drawable.ic_status_bar_next_dark_selector;
+        return R.drawable.ic_status_bar_next_light_selector;
     }
 }

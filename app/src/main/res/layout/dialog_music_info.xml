@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#333333"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/music_info_item_padding_left">
+
+        <TextView
+            android:id="@+id/tv_music_info_title"
+            style="@style/MusicInfoTextViewStyle"
+            android:layout_height="@dimen/music_info_item_height"
+            android:gravity="center"
+            android:text="@string/load_fail" />
+
+        <LinearLayout
+            android:id="@+id/ll_music_info_play"
+            style="@style/MusicInfoLLStyle"
+            android:onClick="@{click.onClick}">
+
+            <ImageView
+                style="@style/MusicInfoIconStyle"
+                android:src="@drawable/ic_music_play" />
+
+            <TextView
+                android:id="@+id/tv_music_info_play"
+                style="@style/MusicInfoTextViewStyle"
+                android:text="播放" />
+        </LinearLayout>
+
+        <TextView style="@style/MusicInfoDividerStyle" />
+
+        <LinearLayout
+            android:id="@+id/ll_music_info_download"
+            style="@style/MusicInfoLLStyle"
+            android:onClick="@{click.onClick}">
+
+            <ImageView
+                style="@style/MusicInfoIconStyle"
+                android:src="@drawable/ic_music_download" />
+
+            <TextView
+                android:id="@+id/tv_music_info_download"
+                style="@style/MusicInfoTextViewStyle"
+                android:text="下载" />
+        </LinearLayout>
+
+        <TextView style="@style/MusicInfoDividerStyle" />
+
+        <LinearLayout
+            android:id="@+id/ll_music_info_share"
+            style="@style/MusicInfoLLStyle"
+            android:onClick="@{click.onClick}">
+
+            <ImageView
+                style="@style/MusicInfoIconStyle"
+                android:src="@drawable/ic_music_share" />
+
+            <TextView
+                android:id="@+id/tv_music_info_share"
+                style="@style/MusicInfoTextViewStyle"
+                android:text="分享" />
+        </LinearLayout>
+
+        <TextView style="@style/MusicInfoDividerStyle" />
+
+        <LinearLayout
+            android:id="@+id/ll_music_info_singer"
+            style="@style/MusicInfoLLStyle"
+            android:onClick="@{click.onClick}">
+
+            <ImageView
+                style="@style/MusicInfoIconStyle"
+                android:src="@drawable/ic_music_singer" />
+
+            <TextView
+                android:id="@+id/tv_music_info_singer"
+                style="@style/MusicInfoTextViewStyle"
+                android:text="xsadsadas" />
+        </LinearLayout>
+
+        <TextView style="@style/MusicInfoDividerStyle" />
+
+        <LinearLayout
+            android:id="@+id/ll_music_info_album"
+            style="@style/MusicInfoLLStyle"
+            android:onClick="@{click.onClick}">
+
+            <ImageView
+                style="@style/MusicInfoIconStyle"
+                android:src="@drawable/ic_music_album" />
+
+            <TextView
+                android:id="@+id/tv_music_info_album"
+                style="@style/MusicInfoTextViewStyle"
+                android:text="xsadsadas" />
+        </LinearLayout>
+
+        <TextView style="@style/MusicInfoDividerStyle" />
+    </LinearLayout>
+</layout>

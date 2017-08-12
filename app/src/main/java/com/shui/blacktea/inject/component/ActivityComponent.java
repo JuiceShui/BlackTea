@@ -8,6 +8,7 @@ package com.shui.blacktea.inject.component;
 import android.app.Activity;
 
 import com.shui.blacktea.inject.module.ActivityModule;
+import com.shui.blacktea.ui.music.OnlineMusicListActivity;
 import com.shui.blacktea.ui.home.HomeActivity;
 import com.shui.blacktea.ui.home.SplashActivity;
 import com.shui.blacktea.ui.news.NewsCateSelectActivity;
@@ -29,4 +30,6 @@ public interface ActivityComponent {
     void Inject(NewsDetailActivity newsDetailActivity);
 
     void Inject(SplashActivity splashActivity);
+
+    void Inject(OnlineMusicListActivity onlineMusicListActivity);
 }

@@ -1,6 +1,6 @@
 package com.shui.blacktea.ui.music.contract;
 
-import com.shui.blacktea.entity.BaiduSong.SongListEntity;
+import com.shui.blacktea.entity.BaiduSong.SongBillboardEntity;
 import com.yeeyuntech.framework.ui.IYYLoadView;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface OnlineMusicContract {
     interface View extends IYYLoadView {
-        void showData(List<SongListEntity> list);
+        void showData(List<SongBillboardEntity> list);
     }
 
     interface Presenter {

@@ -41,6 +41,7 @@
         </activity>
         <activity android:name=".ui.news.NewsCateSelectActivity" />
         <activity android:name=".ui.news.NewsDetailActivity" />
+        <activity android:name=".ui.music.OnlineMusicListActivity" />
 
         <service android:name=".ui.music.service.PlayService" />
 

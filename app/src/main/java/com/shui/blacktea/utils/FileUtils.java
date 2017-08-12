@@ -1,17 +1,19 @@
 package com.shui.blacktea.utils;
 
 import android.content.Context;
-import android.os.Environment;
 import android.text.TextUtils;
 
 import com.shui.blacktea.App;
 import com.shui.blacktea.R;
+import com.shui.blacktea.config.Constants;
 import com.shui.blacktea.entity.MusicEntity;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,7 +24,7 @@ public class FileUtils {
     private static final String LRC = ".lrc";
 
     private static String getAppDir() {
-        return Environment.getExternalStorageDirectory() + "/PonyMusic";
+        return Constants.PATH_EXTERNAL_CARD;
     }
 
     public static String getMusicDir() {
@@ -51,7 +53,7 @@ public class FileUtils {
     }
 
     public static String getRelativeMusicDir() {
-        String dir = "PonyMusic/Music/";
+        String dir = "blackTea/Music/";
         return mkdirs(dir);
     }
 
@@ -172,5 +174,25 @@ public class FileUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void writeFile(InputStream in, File file) throws IOException {
+        if (!file.getParentFile().exists())
+            file.getParentFile().mkdirs();
+
+        if (file != null && file.exists())
+            file.delete();
+
+        FileOutputStream out = new FileOutputStream(file);
+        byte[] buffer = new byte[1024 * 128];
+        int len = -1;
+        while ((len = in.read(buffer)) != -1) {
+            out.write(buffer, 0, len);
+        }
+        System.out.println("下载完成");
+        out.flush();
+        out.close();
+        in.close();
+
     }
 }

@@ -1,9 +1,13 @@
 package com.shui.blacktea.data;
 
+import android.os.Build;
+import android.webkit.WebSettings;
+
 import com.shui.blacktea.App;
 import com.shui.blacktea.BuildConfig;
 import com.shui.blacktea.config.Constants;
 import com.shui.blacktea.data.API.BaiduMusicApi;
+import com.shui.blacktea.data.API.DownloadApi;
 import com.shui.blacktea.data.API.TXApi;
 import com.shui.blacktea.data.API.YYApi;
 import com.shui.blacktea.data.response.TXResponse;
@@ -34,6 +38,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -49,12 +54,16 @@ public class RetrofitHelper {
     private static TXApi txApi = null;
     private static YYApi yyApi = null;
     private static BaiduMusicApi bdApi = null;
+    private static DownloadApi downloadApi = null;
+    private String UserAgent;
 
     private void init() {
         initOkHttp();
         txApi = getTxApi();
         yyApi = getYYApi();
         bdApi = getBDApi();
+        downloadApi = getDownloadApi();
+        UserAgent = getUserAgent();
     }
 
     @Inject
@@ -83,10 +92,19 @@ public class RetrofitHelper {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
+
                 if (!NetWorkUtil.isNetWorkAvailable(App.getInstance())) {
                     //没网络时强制使用缓存
                     request = request.newBuilder()
                             .cacheControl(CacheControl.FORCE_CACHE)
+                            .removeHeader("User-Agent")
+                            .addHeader("User-Agent", UserAgent)
+                            .build();
+                } else {
+                    request = request.newBuilder()
+                            .cacheControl(CacheControl.FORCE_NETWORK)
+                            .removeHeader("User-Agent")
+                            .addHeader("User-Agent", UserAgent)
                             .build();
                 }
                 Response response = chain.proceed(request);
@@ -95,6 +113,8 @@ public class RetrofitHelper {
                     int maxAge = 0;
                     response.newBuilder()
                             .header("Cache-Control", "public, max-age=" + maxAge)
+                            .removeHeader("User-Agent")
+                            .addHeader("User-Agent", UserAgent)
                             .removeHeader("shui")//// 清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
                             .build();
                 } else {
@@ -102,6 +122,8 @@ public class RetrofitHelper {
                     int maxTime = 60 * 60 * 24 * 30;
                     response.newBuilder()
                             .header("Cache-Control", "public, only-if-cached, max-stale=" + maxTime)
+                            .removeHeader("User-Agent")
+                            .addHeader("User-Agent", UserAgent)
                             .removeHeader("shui")
                             .build();
                 }
@@ -122,6 +144,28 @@ public class RetrofitHelper {
         okHttpClient = builder.build();
     }
 
+    private static String getUserAgent() {
+        String userAgent = "";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            try {
+                userAgent = WebSettings.getDefaultUserAgent(App.getInstance());
+            } catch (Exception e) {
+                userAgent = System.getProperty("http.agent");
+            }
+        } else {
+            userAgent = System.getProperty("http.agent");
+        }
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0, length = userAgent.length(); i < length; i++) {
+            char c = userAgent.charAt(i);
+            if (c <= '\u001f' || c >= '\u007f') {
+                sb.append(String.format("\\u%04x", (int) c));
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
 
     /**
      * 新闻
@@ -144,7 +188,7 @@ public class RetrofitHelper {
     private YYApi getYYApi() {
         Retrofit yyRetrofit = new Retrofit.Builder()
                 .baseUrl(YYApi.HOST)
-                .client(okHttpClient)
+                .callFactory(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
@@ -164,6 +208,21 @@ public class RetrofitHelper {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         return baiduRetrofit.create(BaiduMusicApi.class);
+    }
+
+    /**
+     * 下载
+     *
+     * @return
+     */
+    private DownloadApi getDownloadApi() {
+        Retrofit downloadRetrofit = new Retrofit.Builder()
+                .baseUrl(BaiduMusicApi.HOST)
+
+                .client(okHttpClient)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+        return downloadRetrofit.create(DownloadApi.class);
     }
 
     /******TXNEWS******/
@@ -268,5 +327,10 @@ public class RetrofitHelper {
     public Observable<BaiduSongArtistSongsListEntity> getArtistSongs(String tingUid, int limits) {
         return bdApi.getArtistSongs(BaiduMusicApi.METHOD_ARTIST_SONGS,
                 tingUid, limits, BaiduMusicApi.use_cluster, BaiduMusicApi.order);
+    }
+
+    /*********download*******/
+    public Observable<ResponseBody> download(String url) {
+        return downloadApi.download(url);
     }
 }

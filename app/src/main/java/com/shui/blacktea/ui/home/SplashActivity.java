@@ -9,6 +9,7 @@ import com.shui.blacktea.entity.SplashImgEntity;
 import com.shui.blacktea.ui.BaseActivity;
 import com.shui.blacktea.ui.home.contract.SplashContract;
 import com.shui.blacktea.ui.home.presenter.SplashPresenter;
+import com.shui.blacktea.utils.SHA1;
 import com.yeeyuntech.framework.ui.IYYPresenter;
 
 import javax.inject.Inject;
@@ -46,6 +47,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
 
     @Override
     public void showSplashImg(SplashImgEntity entity) {
+        SHA1.getSHA1(mActivity);
         Glide.with(this).load(entity.getShowapi_res_body().getData().getImg_1366()).into(mBinding.ivSplash);
         mBinding.tvDes.setText(entity.getShowapi_res_body().getData().getDescription());
         mBinding.tvSubtitle.setText(entity.getShowapi_res_body().getData().getSubtitle());
