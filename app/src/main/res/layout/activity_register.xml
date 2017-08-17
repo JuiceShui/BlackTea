@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/normal_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorAccent"
+            android:fitsSystemWindows="true"
+            android:minHeight="?attr/actionBarSize"
+            app:titleTextColor="@android:color/white" />
+        <!--手机号-->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/register_et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_size_10"
+                android:layout_marginRight="@dimen/space_size_10"
+                android:layout_marginTop="@dimen/space_size_10"
+                android:drawablePadding="@dimen/space_size_10"
+                android:hint="@string/register_hint_phone"
+                android:inputType="phone"
+                android:padding="@dimen/space_size_8" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/register_tv_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_size_15"
+            android:layout_marginTop="2dp"
+            android:text="2ewewqe"
+            android:visibility="invisible" />
+        <!--验证码-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/register_et_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_size_10"
+                    android:layout_marginRight="@dimen/space_size_10"
+                    android:layout_marginTop="@dimen/space_size_10"
+                    android:drawablePadding="@dimen/space_size_10"
+                    android:hint="@string/register_hint_code"
+                    android:padding="@dimen/space_size_8" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/register_btn_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_size_10"
+                android:layout_marginRight="@dimen/space_size_10"
+                android:layout_marginTop="@dimen/space_size_10"
+                android:layout_weight="2"
+                android:onClick="@{click.onClick}"
+                android:padding="@dimen/space_size_8"
+                android:text="@string/get_code" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/register_tv_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_size_15"
+            android:layout_marginTop="2dp"
+            android:visibility="invisible" />
+        <!--昵称-->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/register_et_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_size_10"
+                android:layout_marginRight="@dimen/space_size_10"
+                android:layout_marginTop="@dimen/space_size_10"
+                android:drawablePadding="@dimen/space_size_10"
+                android:hint="@string/register_hint_nick"
+                android:padding="@dimen/space_size_8" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/register_tv_nick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_size_15"
+            android:layout_marginTop="2dp"
+
+            android:visibility="invisible" />
+        <!--密码-->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/register_et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_size_10"
+                android:layout_marginRight="@dimen/space_size_10"
+                android:layout_marginTop="@dimen/space_size_10"
+                android:drawablePadding="@dimen/space_size_10"
+                android:hint="@string/register_hint_password"
+                android:inputType="textPassword"
+                android:padding="@dimen/space_size_8" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/register_tv_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_size_15"
+            android:layout_marginTop="2dp"
+
+            android:visibility="invisible" />
+        <!--重复密码-->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/register_et_repassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_size_10"
+                android:layout_marginRight="@dimen/space_size_10"
+                android:layout_marginTop="@dimen/space_size_10"
+                android:drawablePadding="@dimen/space_size_10"
+                android:hint="@string/register_hint_repassword"
+                android:inputType="textPassword"
+                android:padding="@dimen/space_size_8" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/register_tv_repassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/space_size_15"
+            android:layout_marginTop="2dp"
+
+            android:visibility="invisible" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/register_et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_size_10"
+                android:layout_marginRight="@dimen/space_size_10"
+                android:layout_marginTop="@dimen/space_size_10"
+                android:drawablePadding="@dimen/space_size_10"
+                android:hint="@string/register_hint_email"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/space_size_8" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/register_btn_success"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{click.onClick}"
+            android:text="@string/register_success" />
+    </LinearLayout>
+</layout>

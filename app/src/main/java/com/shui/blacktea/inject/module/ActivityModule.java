@@ -9,9 +9,11 @@ import android.app.Activity;
 import android.databinding.DataBindingUtil;
 
 import com.shui.blacktea.databinding.ActivityHomeBinding;
+import com.shui.blacktea.databinding.ActivityLoginBinding;
 import com.shui.blacktea.databinding.ActivityNewsDetialBinding;
 import com.shui.blacktea.databinding.ActivityNewsSelectCateBinding;
 import com.shui.blacktea.databinding.ActivityOnlineMusicListBinding;
+import com.shui.blacktea.databinding.ActivityRegisterBinding;
 import com.shui.blacktea.databinding.ActivitySplashBinding;
 import com.yeeyuntech.framework.inject.module.YYActivityModule;
 import com.yeeyuntech.framework.inject.scope.ActivityScope;
@@ -54,6 +56,18 @@ public class ActivityModule extends YYActivityModule {
     @Provides
     @ActivityScope
     ActivityOnlineMusicListBinding provideActivityOnlineMusicListBinding() {
+        return DataBindingUtil.setContentView(mActivity, ((YYActivity) (mActivity)).getLayoutId());
+    }
+
+    @Provides
+    @ActivityScope
+    ActivityLoginBinding provideActivityLoginBinding() {
+        return DataBindingUtil.setContentView(mActivity, ((YYActivity) (mActivity)).getLayoutId());
+    }
+
+    @Provides
+    @ActivityScope
+    ActivityRegisterBinding provideActivityRegisterBinding() {
         return DataBindingUtil.setContentView(mActivity, ((YYActivity) (mActivity)).getLayoutId());
     }
 }

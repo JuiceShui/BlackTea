@@ -42,6 +42,16 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
 
     @Override
     public void getData() {
+       /* AVObject testObject = new AVObject("TestObject");
+        testObject.put("words", "Hello World!");
+        testObject.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(AVException e) {
+                if (e == null) {
+                    Log.d("saved", "success!");
+                }
+            }
+        });*/
         mPresenter.getSplashImg();
     }
 
@@ -52,7 +62,6 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         mBinding.tvDes.setText(entity.getShowapi_res_body().getData().getDescription());
         mBinding.tvSubtitle.setText(entity.getShowapi_res_body().getData().getSubtitle());
         mBinding.tvTitle.setText(entity.getShowapi_res_body().getData().getTitle());
-
     }
 
     @Override

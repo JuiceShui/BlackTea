@@ -8,12 +8,16 @@ package com.shui.blacktea;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
+import android.text.TextUtils;
 
+import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVUser;
 import com.shui.blacktea.config.AppCfg;
 import com.shui.blacktea.inject.component.AppComponent;
 import com.shui.blacktea.inject.component.DaggerAppComponent;
 import com.shui.blacktea.inject.module.AppModule;
 import com.shui.blacktea.utils.CircularAnim;
+import com.shui.blacktea.utils.SharedPreferenceUtils;
 import com.yeeyuntech.framework.YYApplication;
 
 /**
@@ -36,6 +40,7 @@ public class App extends YYApplication {
     private Looper mHandlerLooper;
     // component
     public static AppComponent mAppComponent;
+    private static String mUser;
 
     @Override
     public void onCreate() {
@@ -47,6 +52,9 @@ public class App extends YYApplication {
         mHandler = new Handler(mHandlerLooper);
         CircularAnim.init(700, 500, R.color.colorPrimary);
         AppCfg.init(this);
+        AVOSCloud.initialize(this, "rrpQ9orLMgOn96iDoxNm6gLX-gzGzoHsz", "0AB4mgpHOGketYN71m98rOye");
+        AVOSCloud.setDebugLogEnabled(true);
+        getUser();
     }
 
     public static synchronized App getInstance() {
@@ -70,9 +78,26 @@ public class App extends YYApplication {
     /*public UserEntity getUser() {
         return mUser;
     }*/
+    private void getUser() {
+        String userInfo = SharedPreferenceUtils.getUser();
+        if (!TextUtils.isEmpty(userInfo)) {
+            mUser = userInfo;
+        }
+    }
+
+    public static String getUserInfo() {
+        return mUser;
+    }
 
     public Handler getHandler() {
         return mHandler;
+    }
+
+    public static AVUser getCurrentAVUser() {
+        if (!TextUtils.isEmpty(getUserInfo())) {
+            return AVUser.getCurrentUser();
+        }
+        return null;
     }
 
     @Override

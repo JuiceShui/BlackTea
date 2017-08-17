@@ -62,4 +62,20 @@ public class SharedPreferenceUtils {
     public static void setFilterTime(long time) {
         getAppSp().edit().putLong(FILTER_TIME, time).apply();
     }
+
+    public static boolean isUserLogin() {
+        return getAppSp().getBoolean(Constants.SP_IS_LOGINED, false);
+    }
+
+    public static void setUserIsLogin(boolean isLogin) {
+        getAppSp().edit().putBoolean(Constants.SP_IS_LOGINED, isLogin).apply();
+    }
+
+    public static void setUser(String avUser) {
+        getAppSp().edit().putString(Constants.SP_USER, avUser).apply();
+    }
+
+    public static String getUser() {
+        return getAppSp().getString(Constants.SP_USER, "");
+    }
 }

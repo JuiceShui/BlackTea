@@ -3,6 +3,9 @@
 
     <data>
 
+        <variable
+            name="click"
+            type="android.view.View.OnClickListener" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,24 +21,26 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-        <com.yeeyuntech.framework.ui.widget.CircleImageView
-            android:id="@+id/imageView"
+        <com.shui.blacktea.widget.CircleImageView
+            android:id="@+id/nav_user_avatar"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:onClick="@{click.onClick}"
             android:src="#000000" />
 
         <TextView
+            android:id="@+id/nav_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
-            android:text="Android Studio"
+            android:text="Juice_"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/nav_user_position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="android.studio@android.com" />
+            android:text="CD" />
 
     </LinearLayout>
 </layout>

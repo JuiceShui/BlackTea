@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 
 
+import com.shui.blacktea.databinding.FragmentImgBinding;
 import com.shui.blacktea.databinding.FragmentLocalMusicBinding;
 import com.shui.blacktea.databinding.FragmentMusicBinding;
 import com.shui.blacktea.databinding.FragmentMusicPlayingBinding;
@@ -71,6 +72,12 @@ public class FragmentModule extends YYFragmentModule {
     @Provides
     @FragmentScope
     FragmentMusicPlayingBinding provideFragmentMusicPlayingBinding() {
+        return DataBindingUtil.inflate(LayoutInflater.from(mFragment.getActivity()), ((YYFragment) mFragment).getLayoutId(), null, false);
+    }
+
+    @Provides
+    @FragmentScope
+    FragmentImgBinding provideFragmentImgBinding() {
         return DataBindingUtil.inflate(LayoutInflater.from(mFragment.getActivity()), ((YYFragment) mFragment).getLayoutId(), null, false);
     }
 }

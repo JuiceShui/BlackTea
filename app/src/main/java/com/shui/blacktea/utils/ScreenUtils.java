@@ -18,6 +18,10 @@ public class ScreenUtils {
         WindowManager wm = (WindowManager) sContext.getSystemService(Context.WINDOW_SERVICE);
         return wm.getDefaultDisplay().getWidth();
     }
+    public static int getScreenHeight() {
+        WindowManager wm = (WindowManager) sContext.getSystemService(Context.WINDOW_SERVICE);
+        return wm.getDefaultDisplay().getHeight();
+    }
 
     /**
      * 获取状态栏高度

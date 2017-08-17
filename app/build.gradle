@@ -19,7 +19,6 @@ android {
         }
     }
     productFlavors {
-        // 开发版本
         app_local {
             applicationId "com.shui.blacktea"
             signingConfig signingConfigs.debug
@@ -31,7 +30,7 @@ android {
             // 产品更新是否是在我们的蒲公英
             buildConfigField 'boolean', 'releaseBuild', 'false'
         }
-        // 测试版本 后台推到线上时使用
+
         app_test {
             applicationId "com.shui.blacktea"
             signingConfig signingConfigs.debug
@@ -42,7 +41,7 @@ android {
             buildConfigField 'boolean', 'releaseEnvironment', 'true'
             buildConfigField 'boolean', 'releaseBuild', 'false'
         }
-        // 正式版本
+
         app_offical {
             applicationId "com.shui.blacktea"
             signingConfig signingConfigs.debug
@@ -61,6 +60,15 @@ android {
 
     lintOptions {
         abortOnError false
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
     }
 }
 
@@ -94,4 +102,25 @@ dependencies {
     compile 'com.getbase:floatingactionbutton:1.10.1'
     //VideoListManager
     compile project(path: ':nicevideoplayer')
+    //后端云
+    compile('cn.leancloud.android:avoscloud-sdk:v4.4.4')
+    // 推送与实时聊天需要的包
+    compile('cn.leancloud.android:avoscloud-push:v4.4.4@aar') { transitive = true }
+
+    // LeanCloud 统计包
+    compile('cn.leancloud.android:avoscloud-statistics:v4.4.4')
+
+    // LeanCloud 用户反馈包
+    compile('cn.leancloud.android:avoscloud-feedback:v4.4.4@aar')
+
+    // avoscloud-sns：LeanCloud 第三方登录包
+    compile('cn.leancloud.android:avoscloud-sns:v4.4.4@aar')
+    compile('cn.leancloud.android:qq-sdk:1.6.1-leancloud')
+    // 目前新浪微博官方只提供 jar 包的集成方式
+    // 请手动下载新浪微博 SDK 的 jar 包，将其放在 libs 目录下进行集成
+
+    // LeanCloud 应用内搜索包
+    compile('cn.leancloud.android:avoscloud-search:v4.4.4@aar')
+
+    compile 'com.lzy.widget:imagepicker:0.5.5'
 }

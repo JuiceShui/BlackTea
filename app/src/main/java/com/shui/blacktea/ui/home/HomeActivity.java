@@ -13,11 +13,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
+import com.avos.avoscloud.AVUser;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.view.CropImageView;
 import com.shui.blacktea.R;
 import com.shui.blacktea.config.AppCache;
 import com.shui.blacktea.config.Constants;
 import com.shui.blacktea.databinding.ActivityHomeBinding;
+import com.shui.blacktea.databinding.NavHeaderHomeBinding;
 import com.shui.blacktea.entity.MusicEntity;
 import com.shui.blacktea.ui.BaseActivity;
 import com.shui.blacktea.ui.chat.ChatFragment;
@@ -31,8 +37,10 @@ import com.shui.blacktea.ui.news.NewsFragment;
 import com.shui.blacktea.ui.setting.SettingFragment;
 import com.shui.blacktea.ui.user.UserFragment;
 import com.shui.blacktea.ui.video.VideoFragment;
+import com.shui.blacktea.utils.GlideImageLoader;
 import com.shui.blacktea.utils.MusicLoaderUtils;
 import com.shui.blacktea.utils.SharedPreferenceUtils;
+import com.shui.blacktea.widget.CircleImageView;
 
 import java.util.List;
 
@@ -41,7 +49,7 @@ import javax.inject.Inject;
 import me.yokeyword.fragmentation.SupportFragment;
 
 public class HomeActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, Extras {
+        implements NavigationView.OnNavigationItemSelectedListener, Extras, View.OnClickListener {
     @Inject
     ActivityHomeBinding mBinding;
     private NewsFragment mNewsFragment;
@@ -57,6 +65,11 @@ public class HomeActivity extends BaseActivity
     private int mShowFragmentType = Constants.TYPE_NEWS;
     private int mHideFragmentType = Constants.TYPE_NEWS;
     private ServiceConnection mServiceConnection;
+    private NavHeaderHomeBinding mHeaderBinding;
+    private View mHeaderView;
+    private CircleImageView mCiAvatar;
+    private TextView mTVUserName;
+    private AVUser mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +91,23 @@ public class HomeActivity extends BaseActivity
     }
 
     @Override
+    public void initParams() {
+        ImagePicker imagePicker = ImagePicker.getInstance();
+        imagePicker.setImageLoader(new GlideImageLoader());   //设置图片加载器
+        imagePicker.setMultiMode(true);//单选多选
+        imagePicker.setShowCamera(true);  //显示拍照按钮
+        imagePicker.setCrop(true);        //允许裁剪（单选才有效）
+        imagePicker.setSaveRectangle(true); //是否按矩形区域保存
+        imagePicker.setSelectLimit(9);    //选中数量限制
+        imagePicker.setStyle(CropImageView.Style.RECTANGLE);  //裁剪框的形状
+        imagePicker.setFocusWidth(800);   //裁剪框的宽度。单位像素（圆形自动取宽高最小值）
+        imagePicker.setFocusHeight(800);  //裁剪框的高度。单位像素（圆形自动取宽高最小值）
+        imagePicker.setOutPutX(1000);//保存文件的宽度。单位像素
+        imagePicker.setOutPutY(1000);//保存文件的高度。单位像素
+       // mUser = App.getUserInfo();
+    }
+
+    @Override
     public int getLayoutId() {
         return R.layout.activity_home;
     }
@@ -90,6 +120,8 @@ public class HomeActivity extends BaseActivity
     @Override
     protected void initBinding() {
         super.initBinding();
+        //mHeaderBinding = DataBindingUtil.inflate(LayoutInflater.from(mActivity), R.layout.nav_header_home, null, false);
+        //mHeaderBinding.setClick(this);
     }
 
     @Override
@@ -100,6 +132,16 @@ public class HomeActivity extends BaseActivity
                 mChatFragment, mMusicFragment, mSettingFragment, mCollectionFragment, mDownLoadFragment);
         mBinding.navView.setNavigationItemSelectedListener(this);
         mBinding.navView.getMenu().findItem(R.id.nav_news).setChecked(true);
+        mHeaderView = mBinding.navView.inflateHeaderView(R.layout.nav_header_home);
+        mCiAvatar = (CircleImageView) mHeaderView.findViewById(R.id.nav_user_avatar);
+        mTVUserName = (TextView) mHeaderView.findViewById(R.id.nav_user_name);
+        mCiAvatar.setOnClickListener(this);
+        /*if (mUser != null) {
+            System.out.println(mUser.toString());
+            System.out.println(mUser.getUsername());
+            mTVUserName.setText(mUser.getUsername());
+        }*/
+
     }
 
     public void setToolbar(Toolbar toolbar) {
@@ -255,6 +297,23 @@ public class HomeActivity extends BaseActivity
         startService(intent);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.nav_user_avatar:
+                System.out.println("click");
+                boolean isLogin = SharedPreferenceUtils.isUserLogin();
+                if (isLogin) {
+                    //用户信息界面
+                } else {
+                    //登录界面
+                    Intent intent = new Intent(mActivity, LoginActivity.class);
+                    startActivity(intent);
+                }
+                break;
+        }
+    }
+
     private class PlayServiceConnection implements ServiceConnection {
 
         @Override
@@ -262,18 +321,18 @@ public class HomeActivity extends BaseActivity
             final PlayService playService = ((PlayService.PlayBinder) service).getService();
             AppCache.getInstance().setPlayService(playService);
             //PermissionReq.with(HomeActivity.this).permissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE).result(new PermissionResult() {
-               // @Override
-               // public void onGranted() {
-                    List<MusicEntity> list = MusicLoaderUtils.scanMusic(mActivity);
-                    AppCache.getInstance().setMusicList(list);
-               }
+            // @Override
+            // public void onGranted() {
+            List<MusicEntity> list = MusicLoaderUtils.scanMusic(mActivity);
+            AppCache.getInstance().setMusicList(list);
+        }
 
-               // @Override
-               // public void onDenied() {
-                  //  ToastUtils.showToast(getString(R.string.no_permission, "读取储存", "扫描本地音乐"));
-                 //   playService.quit();
-                //}
-            //});
+        // @Override
+        // public void onDenied() {
+        //  ToastUtils.showToast(getString(R.string.no_permission, "读取储存", "扫描本地音乐"));
+        //   playService.quit();
+        //}
+        //});
 
         //}
 
