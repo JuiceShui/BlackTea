@@ -121,6 +121,8 @@ dependencies {
 
     // LeanCloud 应用内搜索包
     compile('cn.leancloud.android:avoscloud-search:v4.4.4@aar')
+    //聊天工具包
+    compile('cn.leancloud.android:chatkit:1.0.0')
 
     compile 'com.lzy.widget:imagepicker:0.5.5'
 }

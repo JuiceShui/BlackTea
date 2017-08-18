@@ -12,11 +12,18 @@ import android.text.TextUtils;
 
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMMessage;
+import com.avos.avoscloud.im.v2.AVIMMessageHandler;
+import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.shui.blacktea.config.AppCfg;
+import com.shui.blacktea.entity.type.MessageType;
 import com.shui.blacktea.inject.component.AppComponent;
 import com.shui.blacktea.inject.component.DaggerAppComponent;
 import com.shui.blacktea.inject.module.AppModule;
 import com.shui.blacktea.utils.CircularAnim;
+import com.shui.blacktea.utils.RxBus;
 import com.shui.blacktea.utils.SharedPreferenceUtils;
 import com.yeeyuntech.framework.YYApplication;
 
@@ -54,6 +61,7 @@ public class App extends YYApplication {
         AppCfg.init(this);
         AVOSCloud.initialize(this, "rrpQ9orLMgOn96iDoxNm6gLX-gzGzoHsz", "0AB4mgpHOGketYN71m98rOye");
         AVOSCloud.setDebugLogEnabled(true);
+        AVIMMessageManager.registerDefaultMessageHandler(new MessageHandler());
         getUser();
     }
 
@@ -104,5 +112,18 @@ public class App extends YYApplication {
     public void onTerminate() {
         super.onTerminate();
         mHandlerLooper.quit();
+    }
+
+    private static class MessageHandler extends AVIMMessageHandler {
+        @Override
+        public void onMessage(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
+            super.onMessage(message, conversation, client);
+            RxBus.getDefault().post(new MessageType(message, conversation, client));
+        }
+
+        @Override
+        public void onMessageReceipt(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
+            super.onMessageReceipt(message, conversation, client);
+        }
     }
 }

@@ -88,6 +88,7 @@
             android:theme="@style/ImagePickerThemeFullScreen" />
         <activity android:name=".ui.home.RegisterActivity" />
         <activity android:name=".ui.home.LoginActivity" />
+        <activity android:name=".ui.chat.OnChattingActivity" />
     </application>
 
 </manifest>

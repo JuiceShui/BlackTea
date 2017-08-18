@@ -8,6 +8,7 @@ package com.shui.blacktea.inject.component;
 import android.app.Activity;
 
 import com.shui.blacktea.inject.module.ActivityModule;
+import com.shui.blacktea.ui.chat.OnChattingActivity;
 import com.shui.blacktea.ui.home.LoginActivity;
 import com.shui.blacktea.ui.home.RegisterActivity;
 import com.shui.blacktea.ui.music.OnlineMusicListActivity;
@@ -38,4 +39,6 @@ public interface ActivityComponent {
     void Inject(LoginActivity loginActivity);
 
     void Inject(RegisterActivity registerActivity);
+
+    void Inject(OnChattingActivity chattingActivity);
 }

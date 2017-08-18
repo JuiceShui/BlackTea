@@ -8,6 +8,7 @@ package com.shui.blacktea.inject.module;
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
 
+import com.shui.blacktea.databinding.ActivityChattingBinding;
 import com.shui.blacktea.databinding.ActivityHomeBinding;
 import com.shui.blacktea.databinding.ActivityLoginBinding;
 import com.shui.blacktea.databinding.ActivityNewsDetialBinding;
@@ -70,4 +71,11 @@ public class ActivityModule extends YYActivityModule {
     ActivityRegisterBinding provideActivityRegisterBinding() {
         return DataBindingUtil.setContentView(mActivity, ((YYActivity) (mActivity)).getLayoutId());
     }
+
+    @Provides
+    @ActivityScope
+    ActivityChattingBinding provideActivityChattingBinding() {
+        return DataBindingUtil.setContentView(mActivity, ((YYActivity) (mActivity)).getLayoutId());
+    }
+
 }
