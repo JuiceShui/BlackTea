@@ -77,7 +77,7 @@ public class LoginActivity extends BaseActivity implements View.OnFocusChangeLis
             case R.id.sign_in_button:
                 final String UserNameOrPhone = mBinding.actvUsername.getText().toString().trim();
                 final String Password = mBinding.editPassword.getText().toString().trim();
-                System.out.println(UserNameOrPhone + "--" + Password);
+                //System.out.println(UserNameOrPhone + "--" + Password);
                 AVUser.logInInBackground(UserNameOrPhone, Password, new LogInCallback<AVUser>() {
                     @Override
                     public void done(AVUser avUser, AVException e) {

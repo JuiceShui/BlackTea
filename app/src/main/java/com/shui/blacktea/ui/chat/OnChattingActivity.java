@@ -155,7 +155,8 @@ public class OnChattingActivity extends BaseActivity implements OnChattingContra
             @Override
             public void accept(@NonNull List<AVObject> avObjects) throws Exception {
                 AVObject target = avObjects.get(0);
-                String objectId = target.getObjectId(target);
+                String objectId = target.getObjectId();
+                String avatarUrl = target.getString("avatar");
             }
         }, new Consumer<Throwable>() {
             @Override

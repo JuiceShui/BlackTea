@@ -9,8 +9,9 @@ import android.app.Activity;
 
 import com.shui.blacktea.inject.module.FragmentModule;
 import com.shui.blacktea.ui.chat.ChatFragment;
+import com.shui.blacktea.ui.chat.ConnectFragment;
+import com.shui.blacktea.ui.chat.OnChattingFragment;
 import com.shui.blacktea.ui.chat.child.ChattingFragment;
-import com.shui.blacktea.ui.chat.child.ContractFragment;
 import com.shui.blacktea.ui.chat.child.DiscoverFragment;
 import com.shui.blacktea.ui.collection.CollectionFragment;
 import com.shui.blacktea.ui.download.DownLoadFragment;
@@ -60,7 +61,9 @@ public interface FragmentComponent {
 
     void Inject(ChattingFragment chattingFragment);
 
-    void Inject(ContractFragment contractFragment);
+    void Inject(ConnectFragment connectFragment);
 
     void Inject(DiscoverFragment discoverFragment);
+
+    void Inject(OnChattingFragment onChattingFragment);
 }

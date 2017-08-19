@@ -22,10 +22,13 @@ import com.shui.blacktea.entity.type.MessageType;
 import com.shui.blacktea.inject.component.AppComponent;
 import com.shui.blacktea.inject.component.DaggerAppComponent;
 import com.shui.blacktea.inject.module.AppModule;
+import com.shui.blacktea.ui.chat.UserProvider;
 import com.shui.blacktea.utils.CircularAnim;
 import com.shui.blacktea.utils.RxBus;
 import com.shui.blacktea.utils.SharedPreferenceUtils;
 import com.yeeyuntech.framework.YYApplication;
+
+import cn.leancloud.chatkit.LCChatKit;
 
 /**
  * Description:
@@ -62,6 +65,8 @@ public class App extends YYApplication {
         AVOSCloud.initialize(this, "rrpQ9orLMgOn96iDoxNm6gLX-gzGzoHsz", "0AB4mgpHOGketYN71m98rOye");
         AVOSCloud.setDebugLogEnabled(true);
         AVIMMessageManager.registerDefaultMessageHandler(new MessageHandler());
+        LCChatKit.getInstance().setProfileProvider(UserProvider.getInstance());
+        LCChatKit.getInstance().init(this, "rrpQ9orLMgOn96iDoxNm6gLX-gzGzoHsz", "0AB4mgpHOGketYN71m98rOye");
         getUser();
     }
 

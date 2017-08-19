@@ -11,11 +11,13 @@ import android.view.LayoutInflater;
 
 
 import com.shui.blacktea.databinding.FragmentChatBinding;
+import com.shui.blacktea.databinding.FragmentContractBinding;
 import com.shui.blacktea.databinding.FragmentImgBinding;
 import com.shui.blacktea.databinding.FragmentLocalMusicBinding;
 import com.shui.blacktea.databinding.FragmentMusicBinding;
 import com.shui.blacktea.databinding.FragmentMusicPlayingBinding;
 import com.shui.blacktea.databinding.FragmentNewsBinding;
+import com.shui.blacktea.databinding.FragmentOnChattingBinding;
 import com.shui.blacktea.databinding.FragmentOnlineMusicBinding;
 import com.shui.blacktea.databinding.FragmentTestBinding;
 import com.shui.blacktea.databinding.FragmentVideoBinding;
@@ -85,6 +87,18 @@ public class FragmentModule extends YYFragmentModule {
     @Provides
     @FragmentScope
     FragmentChatBinding provideFragmentChatBinding() {
+        return DataBindingUtil.inflate(LayoutInflater.from(mFragment.getActivity()), ((YYFragment) mFragment).getLayoutId(), null, false);
+    }
+
+    @Provides
+    @FragmentScope
+    FragmentOnChattingBinding provideFragmentOnChatBinding() {
+        return DataBindingUtil.inflate(LayoutInflater.from(mFragment.getActivity()), ((YYFragment) mFragment).getLayoutId(), null, false);
+    }
+
+    @Provides
+    @FragmentScope
+    FragmentContractBinding provideFragmentContractBinding() {
         return DataBindingUtil.inflate(LayoutInflater.from(mFragment.getActivity()), ((YYFragment) mFragment).getLayoutId(), null, false);
     }
 }

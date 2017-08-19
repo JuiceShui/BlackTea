@@ -7,8 +7,6 @@ import com.shui.blacktea.R;
 import com.shui.blacktea.common.FragmentAdapter;
 import com.shui.blacktea.databinding.FragmentChatBinding;
 import com.shui.blacktea.ui.BaseFragment;
-import com.shui.blacktea.ui.chat.child.ChattingFragment;
-import com.shui.blacktea.ui.chat.child.ContractFragment;
 import com.shui.blacktea.ui.chat.child.DiscoverFragment;
 import com.shui.blacktea.utils.StatusBarUtils;
 
@@ -41,8 +39,8 @@ public class ChatFragment extends BaseFragment {
 
     @Override
     public void initParams() {
-        mFragments.add(new ChattingFragment());
-        mFragments.add(new ContractFragment());
+        mFragments.add(new OnChattingFragment());
+        mFragments.add(new ConnectFragment());
         mFragments.add(new DiscoverFragment());
         mAdapter = new FragmentAdapter(getChildFragmentManager(), mFragments);
     }

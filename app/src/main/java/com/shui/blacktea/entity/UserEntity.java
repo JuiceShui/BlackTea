@@ -18,6 +18,15 @@ public class UserEntity {
     private String password;
     private String phoneNumber;
     private String userName;
+    private String signature;
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
 
     public String getObjectId() {
         return objectId;
@@ -113,5 +122,23 @@ public class UserEntity {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "objectId='" + objectId + '\'' +
+                ", email='" + email + '\'' +
+                ", sex=" + sex +
+                ", follower='" + follower + '\'' +
+                ", followee='" + followee + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", level=" + level +
+                ", id=" + id +
+                ", avatar='" + avatar + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", userName='" + userName + '\'' +
+                '}';
     }
 }
